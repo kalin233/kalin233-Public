@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九件交付系统 · 版本历史 v4.2.0</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 30px 15px 60px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+.header { text-align: center; color: #fff; margin-bottom: 30px; }
+.header h1 { font-size: 32px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.85; line-height: 1.7; }
+.latest-card {
+    background: #fff; border-radius: 16px; padding: 24px;
+    margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    border-left: 5px solid #10B981;
+}
+.latest-card .badge {
+    display: inline-block; background: #10B981; color: #fff;
+    font-size: 11px; font-weight: 700; padding: 3px 10px;
+    border-radius: 10px; margin-bottom: 8px;
+}
+.latest-card h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+.latest-card .date { font-size: 12px; color: #999; margin-bottom: 12px; }
+.latest-card .desc { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+.latest-card .desc li { margin: 4px 0 4px 18px; }
+.download-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.dl-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: transform 0.15s, box-shadow 0.15s; }
+.dl-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.btn-apk { background: #5B8DEF; color: #fff; }
+.btn-src { background: #F59E0B; color: #fff; }
+.btn-env { background: #8B5CF6; color: #fff; }
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before {
+    content: ''; position: absolute; left: 10px; top: 0; bottom: 0;
+    width: 2px; background: rgba(255,255,255,0.3);
+}
+.version-card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    position: relative;
+}
+.version-card::before {
+    content: ''; position: absolute; left: -26px; top: 24px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #5B8DEF; border: 3px solid #fff;
+}
+.version-card .version-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; flex-wrap: wrap; gap: 8px;
+}
+.version-card h3 { font-size: 17px; color: #1a1a2e; }
+.version-tag { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+.tag-stable { background: #D1FAE5; color: #065F46; }
+.tag-beta { background: #FEF3C7; color: #92400E; }
+.tag-fix { background: #DBEAFE; color: #1E40AF; }
+.tag-base { background: #EDE9FE; color: #6D28D9; }
+.tag-feat { background: #EDE9FE; color: #6D28D9; }
+.tag-mile { background: #FEF3C7; color: #92400E; }
+.version-card .desc { font-size: 13.5px; color: #555; line-height: 1.8; }
+.version-card .desc li { margin: 3px 0 3px 18px; }
+.version-card .desc strong { color: #1a1a2e; }
+.section-card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+.section-card h2 { font-size: 18px; color: #1a1a2e; margin-bottom: 10px; }
+.section-card p, .section-card li { font-size: 13.5px; color: #555; line-height: 1.8; }
+.section-card ul { padding-left: 20px; }
+.section-card table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+.section-card th { background: #f1edff; color: #4c3f9e; padding: 8px 10px; text-align: left; border: 1px solid #e2dbfa; }
+.section-card td { padding: 8px 10px; border: 1px solid #ece9f7; color: #444; }
+.footer { text-align: center; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-top: 10px; }
+
+/* 多源下载按钮 - 水平排列，和旧版样式一致 */
+.dl-btn.multi { position: relative; cursor: pointer; border: none; font-family: inherit; }
+.dl-btn.multi .src-tag { display: inline-block; margin-left: 6px; padding: 1px 6px; background: rgba(255,255,255,0.25); border-radius: 4px; font-size: 10px; font-weight: 400; }
+.dl-btn.multi:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+/* 悬浮窗提示 */
+#sourceToast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(26,27,46,0.95); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; z-index: 9999; opacity: 0; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); pointer-events: none; }
+#sourceToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#sourceToast .src-icon { margin-right: 6px; }
+
+@media (max-width: 760px) {
+    table { min-width: 0; }
+    .container { padding: 12px 10px; }
+    .container > * { max-width: 100%; box-sizing: border-box; }
+    .card table, .section table, table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 15px; }
+    .footer { font-size: 11px; padding: 12px 8px; }
+
+    .latest-card, .version-card { padding: 12px; }
+    .download-group { flex-wrap: wrap; gap: 8px; }
+    .dl-btn { padding: 8px 14px; font-size: 12.5px; }
+    .badge { font-size: 10px; padding: 2px 6px; }
+    .desc ul { padding-left: 16px; }
+
+}
+/* v4.0 多源下载悬浮窗 */
+#sourceToast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(26,27,46,0.95); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; z-index: 9999; opacity: 0; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); pointer-events: none; }
+#sourceToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#sourceToast .src-icon { margin-right: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+    <div class="header">
+        <h1>九件交付系统 · 版本历史</h1>
+        <p>NADS（Nine-Artifact Delivery System）｜ 三层九件标准化交付体系 ｜ 完整制作历程</p>
+    </div>
+
+    <div class="latest-card">
+        <span class="badge">最新稳定版</span>
+        <h2>v4.2.0 · 对接记录网页 + 首次交付物选择目录</h2>
+        <div class="date">2026-09-21</div>
+        <div class="desc">
+            大版本更新——
+            <ul>
+                <li><strong>新增「对接记录网页」扩展交付物（第 10 件，整合包之前）：</strong>微信/QQ 式对话卡片完整复刻对接全过程，上下排列、紫色=甲方 / 白色=执行方、四角等比圆角，只记结论不记过程，只增不删，文件以卡片嵌入，便于新对话快速调阅历史</li>
+                <li><strong>新增 7.5 首次交付物选择目录规范：</strong>交付物范围明确后在对话中提供可交互选择卡片；九件基础件默认勾选且固定交付，扩展件按需勾选；首次确认后长期固定</li>
+                <li><strong>对接记录制作规范与易错点：</strong>新增 8 条易错点（前几轮缺失 / renderer 重复识别失败嵌套 / 表格不渲染 / 内容被概括篡改 / 统计数字失真 / 样式被擅改），样板作为填空题供其他项目套用</li>
+            </ul>
+        </div>
+        <div class="download-group">
+            <button class="dl-btn multi btn-apk" data-sources='[{"url":"https://aka.doubaocdn.com/s/BOQQBz4UGd","type":"aka","name":"总纲"}]'>📱 总纲</button>
+            <button class="dl-btn multi btn-src" data-sources='[{"url":"https://aka.doubaocdn.com/s/6G4hMkGCTd","type":"aka","name":"源码包"}]'>📦 源码包</button>
+            <button class="dl-btn multi btn-env" data-sources='[{"url":"https://aka.doubaocdn.com/s/4HiKz4voWX","type":"aka","name":"编译环境"}]'>⚙️ 编译环境</button>
+        </div>
+    </div>
+
+    <div class="footer">
+        九件交付系统 · 版本历史 v4.2.0 · 本页面遵循《九件交付系统_项目规范交付书》结构与总纲第 9 章风格规范
+    </div>
+</div>
+<script>
+/* v4.0 自动换源下载系统：多源智能切换 + 悬浮窗提示 */
+(function () {
+    try {
+        var SOURCES = {
+            aka: { name: '临时直链', icon: '⚡', desc: '当前对话临时链接（主源）' },
+            ghPublic: { name: 'GitHub 公开库', icon: '📦', desc: '永久公开直链（备用源）' },
+            ghPrivate: { name: 'GitHub 私密库', icon: '🔒', desc: '需登录，永久保存' },
+            official: { name: '官方源', icon: '🌐', desc: '官方原始下载' }
+        };
+        var toast = document.createElement('div');
+        toast.id = 'sourceToast';
+        document.body.appendChild(toast);
+        var toastTimer = null;
+        function showToast(msg, icon) {
+            toast.innerHTML = '<span class="src-icon">' + (icon || 'ℹ️') + '</span>' + msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 2500);
+        }
+        function checkUrl(url, timeout) {
+            return new Promise(function (resolve) {
+                var controller = new AbortController();
+                var timer = setTimeout(function () { controller.abort(); resolve(false); }, timeout || 5000);
+                fetch(url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal })
+                    .then(function () { clearTimeout(timer); resolve(true); })
+                    .catch(function () { clearTimeout(timer); resolve(false); });
+            });
+        }
+        window.nadsMultiDownload = function (sources) {
+            if (!sources || sources.length === 0) { showToast('下载源列表为空', '⚠️'); return; }
+            showToast('正在检测可用下载源...', '🔍');
+            var idx = 0;
+            function tryNext() {
+                if (idx >= sources.length) { showToast('所有下载源均已失效，请联系管理员', '❌'); return; }
+                var src = sources[idx];
+                var srcInfo = SOURCES[src.type] || SOURCES.official;
+                showToast('正在检测：' + srcInfo.name + '...', '🔍');
+                checkUrl(src.url).then(function (ok) {
+                    if (ok) { showToast('已通过「' + srcInfo.name + '」开始下载', srcInfo.icon); window.open(src.url, '_blank'); }
+                    else { idx++; tryNext(); }
+                });
+            }
+            tryNext();
+        };
+        function initMultiBtns() {
+            var btns = document.querySelectorAll('.dl-btn.multi');
+            for (var i = 0; i < btns.length; i++) {
+                (function (btn) {
+                    var dataStr = btn.getAttribute('data-sources');
+                    if (!dataStr) return;
+                    try {
+                        var sources = JSON.parse(dataStr);
+                        btn.addEventListener('click', function (e) { e.preventDefault(); window.nadsMultiDownload(sources); });
+                    } catch (e) { console.error('解析下载源失败', e); }
+                })(btns[i]);
+            }
+        }
+        initMultiBtns();
+    } catch (e) { console.error(e); }
+})();
+</script>
+</body>
+</html>
