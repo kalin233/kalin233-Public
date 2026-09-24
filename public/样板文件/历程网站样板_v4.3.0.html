@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>示例项目名称 · 版本历史 【版本号填写】</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 30px 15px 60px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+.header { text-align: center; color: #fff; margin-bottom: 30px; }
+.header h1 { font-size: 32px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.85; line-height: 1.7; }
+.latest-card {
+    background: #fff; border-radius: 16px; padding: 24px;
+    margin-bottom: 24px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    border-left: 5px solid #10B981;
+}
+.latest-card .badge {
+    display: inline-block; background: #10B981; color: #fff;
+    font-size: 11px; font-weight: 700; padding: 3px 10px;
+    border-radius: 10px; margin-bottom: 8px;
+}
+.latest-card h2 { font-size: 22px; color: #1a1a2e; margin-bottom: 6px; }
+.latest-card .date { font-size: 12px; color: #999; margin-bottom: 12px; }
+.latest-card .desc { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+.latest-card .desc li { margin: 4px 0 4px 18px; }
+.download-group { display: flex; gap: 10px; flex-wrap: wrap; }
+.dl-btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 20px; border-radius: 10px; text-decoration: none; font-size: 13px; font-weight: 600; transition: transform 0.15s, box-shadow 0.15s; }
+.dl-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+.btn-apk { background: #5B8DEF; color: #fff; }
+.btn-src { background: #F59E0B; color: #fff; }
+.btn-env { background: #8B5CF6; color: #fff; }
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before {
+    content: ''; position: absolute; left: 10px; top: 0; bottom: 0;
+    width: 2px; background: rgba(255,255,255,0.3);
+}
+.version-card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    position: relative;
+}
+.version-card::before {
+    content: ''; position: absolute; left: -26px; top: 24px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: #5B8DEF; border: 3px solid #fff;
+}
+.version-card .version-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 8px; flex-wrap: wrap; gap: 8px;
+}
+.version-card h3 { font-size: 17px; color: #1a1a2e; }
+.version-tag { font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+.tag-stable { background: #D1FAE5; color: #065F46; }
+.tag-beta { background: #FEF3C7; color: #92400E; }
+.tag-fix { background: #DBEAFE; color: #1E40AF; }
+.tag-base { background: #EDE9FE; color: #6D28D9; }
+.tag-feat { background: #EDE9FE; color: #6D28D9; }
+.tag-mile { background: #FEF3C7; color: #92400E; }
+.version-card .desc { font-size: 13.5px; color: #555; line-height: 1.8; }
+.version-card .desc li { margin: 3px 0 3px 18px; }
+.version-card .desc strong { color: #1a1a2e; }
+.section-card {
+    background: #fff; border-radius: 14px; padding: 20px;
+    margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+.section-card h2 { font-size: 18px; color: #1a1a2e; margin-bottom: 10px; }
+.section-card p, .section-card li { font-size: 13.5px; color: #555; line-height: 1.8; }
+.section-card ul { padding-left: 20px; }
+.section-card table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 10px; }
+.section-card th { background: #f1edff; color: #4c3f9e; padding: 8px 10px; text-align: left; border: 1px solid #e2dbfa; }
+.section-card td { padding: 8px 10px; border: 1px solid #ece9f7; color: #444; }
+.footer { text-align: center; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-top: 10px; }
+.dl-btn.multi { position: relative; cursor: pointer; border: none; font-family: inherit; }
+.dl-btn.multi .src-tag { display: inline-block; margin-left: 6px; padding: 1px 6px; background: rgba(255,255,255,0.25); border-radius: 4px; font-size: 10px; font-weight: 400; }
+#sourceToast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(26,27,46,0.95); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; z-index: 9999; opacity: 0; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); pointer-events: none; }
+#sourceToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#sourceToast .src-icon { margin-right: 6px; }
+@media (max-width: 760px) {
+    table { min-width: 0; }
+    .container { padding: 12px 10px; }
+    .container > * { max-width: 100%; box-sizing: border-box; }
+    .card table, .section table, table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 15px; }
+    .footer { font-size: 11px; padding: 12px 8px; }
+    .latest-card, .version-card { padding: 12px; }
+    .download-group { flex-wrap: wrap; gap: 8px; }
+    .dl-btn { padding: 8px 14px; font-size: 12.5px; }
+    .badge { font-size: 10px; padding: 2px 6px; }
+    .desc ul { padding-left: 16px; }
+}
+table { width: 100%; border-collapse: collapse; margin: 12px 0; table-layout: fixed; }
+th, td { vertical-align: middle !important; text-align: center !important; padding: 10px 12px !important; border: 1px solid #e2dbfa; word-break: break-word; }
+th { background: #f5f3ff; font-weight: 700; color: #4c3f9e; }
+td.left, th.left { text-align: left !important; }
+table td .dl-btn { margin: 0 auto; display: block; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>示例项目名称 · 版本历史</h1>
+        <p>EXAMPLE（Nine-Artifact Delivery System）｜ 三层九件标准化交付体系 ｜ 完整制作历程</p>
+    </div>
+    <!-- 【最新版卡片】只有一个；版本号/标题/日期/更新内容/下载链接需替换 -->
+    <div class="latest-card">
+        <span class="badge">最新稳定版</span>
+        <h2>【版本号填写】 · 【版本标题填写】</h2>
+        <div class="date">【日期填写】</div>
+        <div class="desc">
+            【此处填写最新版本的详细更新说明】
+            <ul>
+                <li><strong>【更新项1填写】</strong>【详细说明填写】</li>
+                <li><strong>【更新项2填写】</strong>【详细说明填写】</li>
+            </ul>
+        </div>
+        <div class="download-group">
+            <button class="dl-btn multi btn-apk" data-sources='[{"url": "https://github.com/【用户名】/【仓库名】/releases/download/【tag】/【文件名】", "type": "ghPrivate", "name": "总纲"}, {"url": "https://aka.doubaocdn.com/s/【aka链接】", "type": "aka", "name": "总纲"}]'>📱 总纲<span class="src-tag">多源</span></button>
+            <button class="dl-btn multi btn-src" data-sources='[{"url": "https://github.com/【用户名】/【仓库名】/releases/download/【tag】/【文件名】", "type": "ghPrivate", "name": "源码包"}, {"url": "https://aka.doubaocdn.com/s/【aka链接】", "type": "aka", "name": "源码包"}]'>📦 源码包<span class="src-tag">多源</span></button>
+            <button class="dl-btn multi btn-env" data-sources='[{"url": "https://github.com/【用户名】/【公开库名】/releases/download/【tag】/【编译环境文件名】", "type": "ghPublic", "name": "编译环境"}, {"url": "https://aka.doubaocdn.com/s/【aka链接】", "type": "aka", "name": "编译环境"}]'>⚙️ 编译环境<span class="src-tag">多源</span></button>
+        </div>
+    </div>
+    <div class="timeline">
+    <!-- 【版本卡片模板】复制此块追加；每个版本必须有下载按钮 -->
+    <div class="version-card">
+        <div class="version-header">
+            <h3>【旧版本号填写】 · 【版本标题填写】</h3>
+            <span class="version-tag tag-fix">【标签填写】</span>
+        </div>
+        <div class="date" style="font-size:12px;color:#999;margin-bottom:8px;">【日期填写】</div>
+        <div class="desc">
+            <ul>
+                <li><strong>【更新项填写】</strong>【详细说明填写】</li>
+            </ul>
+        </div>
+        <div class="download-group">
+            <button class="dl-btn multi btn-apk" data-sources='[{"url": "https://github.com/【用户名】/【仓库名】/releases/download/【tag】/【文件名】", "type": "ghPrivate", "name": "总纲"}, {"url": "https://aka.doubaocdn.com/s/【aka链接】", "type": "aka", "name": "总纲"}]'>总纲<span class="src-tag">多源</span></button>
+            <button class="dl-btn multi btn-src" data-sources='[{"url": "https://github.com/【用户名】/【仓库名】/releases/download/【tag】/【文件名】", "type": "ghPrivate", "name": "源码包"}, {"url": "https://aka.doubaocdn.com/s/【aka链接】", "type": "aka", "name": "源码包"}]'>源码包<span class="src-tag">多源</span></button>
+        </div>
+    </div>
+    </div>
+    <div class="section-card">
+        <h2>⚙️ 编译环境包</h2>
+        <p>【编译环境说明填写】</p>
+        <table>
+            <tr><th>内容</th><th>说明</th></tr>
+            <tr><td>【内容1填写】</td><td>【说明1填写】</td></tr>
+            <tr><td>【内容2填写】</td><td>【说明2填写】</td></tr>
+        </table>
+        <div class="download-group" style="margin-top:12px;">
+            <button class="dl-btn btn-env" data-sources='[{"url": "https://github.com/【用户名】/【公开库名】/releases/download/【tag】/【编译环境文件名】", "type": "ghPublic", "name": "编译环境"}, {"url": "https://aka.doubaocdn.com/s/【aka链接】", "type": "aka", "name": "编译环境"}]'>⚙️ 下载编译环境<span class="src-tag">多源</span></button>
+        </div>
+    </div>
+    <div class="footer">
+        示例项目名称 · 版本历史 【版本号填写】 · 【日期填写】
+    </div>
+</div>
+<script>
+(function () {
+    try {
+        var SOURCES = {
+            aka: { name: '临时直链', icon: '⚡', desc: '当前对话临时链接' },
+            ghPublic: { name: 'GitHub 公开库', icon: '📦', desc: '永久公开直链' },
+            ghPrivate: { name: 'GitHub 私密库', icon: '🔒', desc: '需登录，永久保存' },
+            official: { name: '官方源', icon: '🌐', desc: '官方原始下载' }
+        };
+        var toast = document.createElement('div');
+        toast.id = 'sourceToast';
+        document.body.appendChild(toast);
+        var toastTimer = null;
+        function showToast(msg, icon) {
+            toast.innerHTML = '<span class="src-icon">' + (icon || 'ℹ️') + '</span>' + msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 4000);
+        }
+        function showToastLong(msg, icon) {
+            toast.innerHTML = '<span class="src-icon">' + (icon || 'ℹ️') + '</span>' + msg;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(function () { toast.classList.remove('show'); }, 8000);
+        }
+        function probeSource(url, timeout) {
+            return new Promise(function (resolve) {
+                var start = Date.now();
+                var controller = new AbortController();
+                var timer = setTimeout(function () {
+                    controller.abort();
+                    resolve({ url: url, ok: false, time: Infinity });
+                }, timeout || 4000);
+                fetch(url, { method: 'HEAD', mode: 'no-cors', signal: controller.signal })
+                    .then(function () {
+                        clearTimeout(timer);
+                        resolve({ url: url, ok: true, time: Date.now() - start });
+                    })
+                    .catch(function () {
+                        clearTimeout(timer);
+                        resolve({ url: url, ok: false, time: Infinity });
+                    });
+            });
+        }
+        function openAndMonitor(url, onTimeout) {
+            var win = window.open(url, '_blank');
+            var downloadStarted = false;
+            var blurHandler = function () { downloadStarted = true; cleanup(); };
+            var focusHandler = function () {
+                setTimeout(function () {
+                    if (!downloadStarted) { cleanup(); onTimeout(); }
+                }, 2000);
+            };
+            function cleanup() {
+                window.removeEventListener('blur', blurHandler);
+                window.removeEventListener('focus', focusHandler);
+            }
+            window.addEventListener('blur', blurHandler);
+            window.addEventListener('focus', focusHandler);
+            setTimeout(function () {
+                if (!downloadStarted) { cleanup(); onTimeout(); }
+            }, 8000);
+            return win;
+        }
+        window.nadsMultiDownload = function (sources) {
+            if (!sources || sources.length === 0) { showToast('下载源列表为空', '⚠️'); return; }
+            showToast('正在选择最快下载源...', '🔍');
+            var probes = sources.map(function (src) { return probeSource(src.url); });
+            Promise.all(probes).then(function (results) {
+                var available = results.filter(function (r) { return r.ok; });
+                available.sort(function (a, b) { return a.time - b.time; });
+                var unavailable = results.filter(function (r) { return !r.ok; });
+                var orderedUrls = available.map(function (r) { return r.url; })
+                    .concat(unavailable.map(function (r) { return r.url; }));
+                if (orderedUrls.length === 0) {
+                    showToast('所有下载源均不可用，请检查网络', '❌'); return;
+                }
+                var idx = 0;
+                function tryDownload() {
+                    if (idx >= orderedUrls.length) {
+                        showToast('所有源下载均失败，请稍后重试或检查网络', '❌'); return;
+                    }
+                    var url = orderedUrls[idx];
+                    var src = sources.find(function (s) { return s.url === url; });
+                    var srcInfo = SOURCES[src.type] || SOURCES.official;
+                    var probeResult = available.find(function (r) { return r.url === url; });
+                    if (idx === 0) {
+                        if (probeResult) {
+                            var speedLabel = probeResult.time < 300 ? '极快' : probeResult.time < 800 ? '快' : probeResult.time < 2000 ? '一般' : '较慢';
+                            showToastLong('已通过「' + srcInfo.name + '」开始下载（' + probeResult.time + 'ms · ' + speedLabel + '）', srcInfo.icon);
+                        } else {
+                            showToastLong('已通过「' + srcInfo.name + '」开始下载', srcInfo.icon);
+                        }
+                    } else {
+                        showToastLong('已切换至「' + srcInfo.name + '」开始下载', srcInfo.icon);
+                    }
+                    openAndMonitor(url, function () {
+                        idx++;
+                        tryDownload();
+                    });
+                }
+                tryDownload();
+            });
+        };
+        function initMultiBtns() {
+            var btns = document.querySelectorAll('.dl-btn.multi');
+            for (var i = 0; i < btns.length; i++) {
+                (function (btn) {
+                    var dataStr = btn.getAttribute('data-sources');
+                    if (!dataStr) return;
+                    try {
+                        var sources = JSON.parse(dataStr);
+                        btn.addEventListener('click', function (e) { e.preventDefault(); window.nadsMultiDownload(sources); });
+                    } catch (e) { console.error('解析下载源失败', e); }
+                })(btns[i]);
+            }
+        }
+        initMultiBtns();
+    } catch (e) { console.error(e); }
+})();
+</script>
+</body>
+</html>

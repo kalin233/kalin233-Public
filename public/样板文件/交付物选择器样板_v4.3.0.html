@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>交付物选择目录_【项目名称填写】</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif; background:linear-gradient(135deg,#667eea,#764ba2); min-height:100vh; color:#333; padding:20px; }
+.container { max-width:700px; margin:0 auto; }
+.header { text-align:center; color:#fff; margin-bottom:24px; }
+.header h1 { font-size:24px; margin-bottom:8px; }
+.header p { font-size:14px; opacity:0.9; }
+.card { background:#fff; border-radius:16px; padding:24px; box-shadow:0 8px 32px rgba(0,0,0,0.15); }
+.section-title { font-size:16px; font-weight:600; color:#1a1a2e; margin:20px 0 12px; padding-bottom:8px; border-bottom:2px solid #f0f0f5; }
+.section-title:first-child { margin-top:0; }
+.item { display:flex; align-items:center; padding:12px; border:1px solid #e8e8f0; border-radius:10px; margin-bottom:8px; transition:all 0.2s; }
+.item:hover { border-color:#667eea; background:#f8f9ff; }
+.item input[type="checkbox"] { width:20px; height:20px; margin-right:12px; accent-color:#667eea; }
+.item .info { flex:1; }
+.item .name { font-weight:600; font-size:14px; color:#1a1a2e; }
+.item .desc { font-size:12px; color:#888; margin-top:2px; }
+.item .tag { font-size:11px; padding:2px 8px; border-radius:10px; margin-left:8px; }
+.tag-required { background:#ffebee; color:#c62828; }
+.tag-optional { background:#e3f2fd; color:#1565c0; }
+.tag-extension { background:#f3e5f5; color:#7b1fa2; }
+.note { background:#fff8e1; border-left:4px solid #ffc107; padding:12px 16px; border-radius:0 8px 8px 0; margin:16px 0; font-size:13px; }
+.submit-btn { width:100%; padding:14px; background:linear-gradient(135deg,#667eea,#764ba2); color:#fff; border:none; border-radius:10px; font-size:16px; font-weight:600; cursor:pointer; margin-top:20px; }
+.submit-btn:hover { opacity:0.9; }
+@media (max-width:600px) { .container{padding:0;} .card{padding:16px;} }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+    <h1>📦 交付物选择目录</h1>
+    <p>【项目名称填写】 · 首次交付选择 · 选择后固定输出，后续可主动要求变更</p>
+</div>
+<div class="card">
+    <div class="note"><strong>选择规则：</strong>① 九件基础件默认包含，可关闭但固定有；② 扩展交付物按需选择；③ 第一次选择完毕后，如无甲方主动要求重新选择，则固定输出所选交付物；④ 每次交付时会在对话中发送HTML卡片告知本次已交付和可增加的交付物。</div>
+    <div class="section-title">九件基础交付物（默认包含，可关闭）</div>
+    <label class="item">
+        <input type="checkbox" checked disabled>
+        <div class="info"><div class="name">1. 【主交付物名称填写】</div><div class="desc">项目本体，例：APK/EXE/HTML</div></div>
+        <span class="tag tag-required">必选</span>
+    </label>
+    <label class="item">
+        <input type="checkbox" checked disabled>
+        <div class="info"><div class="name">2. 主交付物源码包</div><div class="desc">项目源代码</div></div>
+        <span class="tag tag-required">必选</span>
+    </label>
+    <label class="item">
+        <input type="checkbox" checked>
+        <div class="info"><div class="name">3. 编译环境包</div><div class="desc">项目编译所需环境工具</div></div>
+        <span class="tag tag-required">基础</span>
+    </label>
+    <label class="item">
+        <input type="checkbox" checked disabled>
+        <div class="info"><div class="name">4. 版本历史网站</div><div class="desc">项目版本迭代记录</div></div>
+        <span class="tag tag-required">必选</span>
+    </label>
+    <label class="item">
+        <input type="checkbox" checked disabled>
+        <div class="info"><div class="name">5. NADS变更登记表</div><div class="desc">项目变更记录</div></div>
+        <span class="tag tag-required">必选</span>
+    </label>
+    <label class="item">
+        <input type="checkbox" checked disabled>
+        <div class="info"><div class="name">6. 项目规范交付书</div><div class="desc">项目规范与自检报告</div></div>
+        <span class="tag tag-required">必选</span>
+    </label>
+    <label class="item">
+        <input type="checkbox" checked disabled>
+        <div class="info"><div class="name">7-9. 源码包（4/5/6对应）</div><div class="desc">三个网站的源码包</div></div>
+        <span class="tag tag-required">必选</span>
+    </label>
+    <div class="section-title">扩展交付物（按需选择）</div>
+    <label class="item">
+        <input type="checkbox">
+        <div class="info"><div class="name">10. 对接记录网页</div><div class="desc">完整对话历史记录，便于新对话调阅</div></div>
+        <span class="tag tag-extension">扩展</span>
+    </label>
+    <label class="item">
+        <input type="checkbox">
+        <div class="info"><div class="name">11. 对接记录源码包</div><div class="desc">对接记录HTML源文件</div></div>
+        <span class="tag tag-extension">扩展</span>
+    </label>
+    <label class="item">
+        <input type="checkbox">
+        <div class="info"><div class="name">13. 源仓库上传包</div><div class="desc">用于上传GitHub双库的文件包</div></div>
+        <span class="tag tag-extension">扩展</span>
+    </label>
+    <div class="section-title">固定交付物（每次必含）</div>
+    <label class="item">
+        <input type="checkbox" checked disabled>
+        <div class="info"><div class="name">12. 整合包</div><div class="desc">包含所有交付物的一键下载包，最后一个交付</div></div>
+        <span class="tag tag-required">固定</span>
+    </label>
+    <button class="submit-btn" onclick="alert('已确认选择，将按此目录交付。后续可主动要求变更。')">确认选择并开始交付</button>
+</div>
+</div>
+</body>
+</html>
