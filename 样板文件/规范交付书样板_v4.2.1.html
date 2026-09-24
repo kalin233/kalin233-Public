@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九件交付系统 · 项目规范交付书 v4.2.1</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 30px 15px 60px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+.header { text-align: center; color: #fff; margin-bottom: 24px; }
+.header h1 { font-size: 30px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.85; line-height: 1.7; }
+.card {
+    background: #fff; border-radius: 14px; padding: 20px 22px;
+    margin-bottom: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+.card h2 { font-size: 17px; color: #1a1a2e; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 2px solid #764ba2; }
+.card h3 { font-size: 15px; color: #5B8DEF; margin: 14px 0 8px; }
+.card p, .card li { font-size: 13.5px; color: #555; line-height: 1.8; }
+.nav-tabs { display: flex; gap: 12px; margin-bottom: 16px; }
+.nav-tab {
+    flex: 1; text-align: center; padding: 13px 0; border-radius: 12px;
+    font-size: 14.5px; font-weight: 700; cursor: pointer; user-select: none;
+}
+.nav-tab.on { background: #764ba2; color: #fff; box-shadow: 0 4px 12px rgba(118,75,162,0.35); }
+.nav-tab.off { background: rgba(255,255,255,0.92); color: #4c3f9e; border: 1px solid #d8d2f5; }
+.nav-tab small { display: block; font-size: 11px; font-weight: 400; opacity: 0.75; margin-top: 2px; }
+.acc-item { border: 1px solid #e2dbfa; border-radius: 12px; margin-bottom: 10px; overflow: hidden; background: #fff; }
+.acc-head {
+    display: flex; align-items: center; gap: 10px; padding: 13px 16px;
+    cursor: pointer; user-select: none; background: #f8f6ff;
+}
+.acc-head .arrow { color: #764ba2; font-size: 13px; width: 14px; }
+.acc-head .ver { font-size: 14.5px; font-weight: 700; color: #1a1a2e; }
+.acc-head .date { font-size: 12px; color: #999; }
+.acc-head .tag { margin-left: auto; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 8px; }
+.tag-cur { background: #FEF3C7; color: #92400E; }
+.tag-done { background: #D1FAE5; color: #065F46; }
+.acc-body { display: none; padding: 14px 18px; border-top: 1px solid #e2dbfa; font-size: 13px; color: #444; line-height: 1.9; background: #fff; }
+.acc-body.open { display: block; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 10px 0; }
+th { background: #f1edff; color: #4c3f9e; padding: 8px 10px; text-align: left; border: 1px solid #e2dbfa; }
+td { padding: 8px 10px; border: 1px solid #ece9f7; color: #444; line-height: 1.6; vertical-align: top; }
+.warn { background: #FEF2F2; border-left: 4px solid #EF4444; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #7f1d1d; line-height: 1.7; }
+.note { background: #F1F5FF; border-left: 4px solid #5B8DEF; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #1e3a8a; line-height: 1.7; }
+.footer { text-align: center; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-top: 10px; }
+@media (max-width: 760px) {
+    .container { padding: 12px 10px; }
+    .card { padding: 12px; }
+    .nav-tabs { flex-direction: column; gap: 8px; }
+    table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>九件交付系统 · 项目规范交付书</h1>
+        <p>项目实时需求规范 ｜ 自检报告（按版本收录） ｜ v4.2.1 · 样板文件</p>
+    </div>
+
+    <div class="nav-tabs">
+        <div class="nav-tab on" data-tab="spec">项目规范<small>需求登记 + 可变不可变</small></div>
+        <div class="nav-tab off" data-tab="report">自检报告<small>按版本收录检测结果</small></div>
+    </div>
+
+    <!-- ============ 项目规范页 ============ -->
+    <div id="tab-spec">
+        <div class="card">
+            <h2>总则与定位</h2>
+            <p>本文件是<strong>项目级权威规范</strong>，记录本项目在九件交付系统总纲框架下的实时需求与定制规范。总纲为系统级唯一权威（架构、九件规格、门禁、风格），本文件为项目级权威（三站结构、实时需求、定制项）。</p>
+            <div class="note"><strong>默认不改原则：</strong>项目初始交付内容默认完全按总纲；甲方没提要求、或提了没确认，一律不改；未确认需求不实施。</div>
+        </div>
+
+        <div class="card">
+            <h2>可变 / 不可变声明</h2>
+            <table>
+                <tr><th style="width:14%">类别</th><th>说明</th></tr>
+                <tr><td><strong>A 不可变</strong></td><td>三层九件架构 / 编号规则 / 增量演进（旧内容零改动）/ 一单一签 / 匿名化 / 版本号规范 / 四道门禁 / 8 步流程——任何项目不得偏离</td></tr>
+                <tr><td><strong>B 可变</strong></td><td>网站配色/字体/圆角 / 三网站页面结构 / 命名中平台名 / 扩展件种类 / 门禁检查项明细 / 模板资产库内容 / 文案风格——甲方确认后可改</td></tr>
+                <tr><td><strong>C 边界</strong></td><td>可偏离 B 类，不得碰 A 类；偏离需登记入本文件</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>项目需求登记表</h2>
+            <p>甲方任何实时需求 → 先登记标「待确认」→ 甲方确认 → 标「已确认」→ 才可实施 → 实施后标「已实施」。</p>
+            <table>
+                <tr><th style="width:8%">编号</th><th style="width:30%">需求内容</th><th style="width:12%">提出时间</th><th style="width:12%">涉及章节</th><th style="width:10%">影响类别</th><th style="width:10%">状态</th><th>备注</th></tr>
+                <tr><td>R-001</td><td>（项目需求在此登记）</td><td>—</td><td>—</td><td>—</td><td>待确认</td><td>—</td></tr>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>九件交付清单</h2>
+            <table>
+                <tr><th style="width:8%">编号</th><th style="width:30%">交付物</th><th style="width:20%">文件名</th><th>说明</th></tr>
+                <tr><td>1.</td><td>主交付物（运行件）</td><td>产品名_vX.Y.Z.后缀</td><td>主平台运行件</td></tr>
+                <tr><td>2.</td><td>主交付物源码包</td><td>产品名_源码包_vX.Y.Z.zip</td><td>主平台源码</td></tr>
+                <tr><td>3.</td><td>编译环境</td><td>产品名_编译环境_vX.Y.Z.zip</td><td>工具链 + 离线依赖 + 一键安装</td></tr>
+                <tr><td>4.</td><td>版本历史（历程网站）</td><td>产品名_版本历史_vX.Y.Z.html</td><td>完整制作历程</td></tr>
+                <tr><td>5.</td><td>NADS变更登记表</td><td>产品名_NADS变更登记表_vX.Y.Z.html</td><td>总纲更新管理 + 避坑知识库</td></tr>
+                <tr><td>6.</td><td>项目规范交付书</td><td>产品名_项目规范交付书_vX.Y.Z.html</td><td>本文件</td></tr>
+                <tr><td>7.</td><td>版本历史源码包</td><td>产品名_版本历史源码包_vX.Y.Z.zip</td><td>4. 的源码</td></tr>
+                <tr><td>8.</td><td>变更登记表源码包</td><td>产品名_NADS变更登记表源码包_vX.Y.Z.zip</td><td>5. 的源码</td></tr>
+                <tr><td>9.</td><td>规范交付书源码包</td><td>产品名_项目规范交付书源码包_vX.Y.Z.zip</td><td>6. 的源码</td></tr>
+                <tr><td>10.</td><td>对接记录网页（扩展件）</td><td>产品名_对接记录_vX.Y.Z.html</td><td>对接全过程对话卡片记录</td></tr>
+                <tr><td>11.</td><td>整合包（扩展件）</td><td>产品名_整合包_vX.Y.Z.zip</td><td>含 1~10 全部交付物</td></tr>
+            </table>
+            <div class="warn"><strong>命名规则：</strong>文件名是版本号的唯一权威来源；后缀（.html / .zip / .apk 等）之后不得附加任何内容；编号采用阿拉伯数字（1. 2. 3. …），不使用圈号。</div>
+        </div>
+
+        <div class="card">
+            <h2>交付流程清单</h2>
+            <p>8 步闭环：规划 → 开发 → 构建 → 验证 → 文档 → 打包 → 验收 → 归档。四道门禁：G1 构建门 / G2 测试门 / G3 文档门 / G4 交付门。</p>
+        </div>
+
+        <div class="card">
+            <h2>版本记录</h2>
+            <div class="acc-item">
+                <div class="acc-head" onclick="toggleAcc(this)">
+                    <span class="arrow">▼</span>
+                    <span class="ver">vX.Y.Z</span>
+                    <span class="date">2026-XX-XX</span>
+                    <span class="tag tag-cur">当前版本</span>
+                </div>
+                <div class="acc-body open">
+                    <p><strong>变更内容：</strong>（本次版本变更说明）</p>
+                    <p><strong>需求登记：</strong>R-001 / R-002 …</p>
+                    <p><strong>自检结论：</strong>见「自检报告」页对应版本</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ 自检报告页 ============ -->
+    <div id="tab-report" style="display:none;">
+        <div class="card">
+            <h2>自检报告（按版本收录）</h2>
+            <p>本页仅收录各版本的自检报告，不显示规则内容。每次交付后追加对应版本的自检报告，旧报告不删不改。</p>
+        </div>
+
+        <div class="acc-item">
+            <div class="acc-head" onclick="toggleAcc(this)">
+                <span class="arrow">▼</span>
+                <span class="ver">vX.Y.Z 自检报告</span>
+                <span class="date">2026-XX-XX</span>
+                <span class="tag tag-cur">最新</span>
+            </div>
+            <div class="acc-body open">
+                <h3>检测对象</h3>
+                <p>产品名 vX.Y.Z 全部交付物（1.~11.）</p>
+                <h3>检测方式</h3>
+                <p>G1 构建门 / G2 测试门 / G3 文档门 / G4 交付门 逐项核验</p>
+                <h3>九件核销明细</h3>
+                <table>
+                    <tr><th>编号</th><th>交付物</th><th>文件名</th><th>结果</th></tr>
+                    <tr><td>1.</td><td>主交付物</td><td>产品名_vX.Y.Z.后缀</td><td>✅ 通过</td></tr>
+                    <tr><td>2.</td><td>源码包</td><td>产品名_源码包_vX.Y.Z.zip</td><td>✅ 通过</td></tr>
+                    <tr><td>3.</td><td>编译环境</td><td>产品名_编译环境_vX.Y.Z.zip</td><td>✅ 通过</td></tr>
+                    <tr><td>4.</td><td>版本历史</td><td>产品名_版本历史_vX.Y.Z.html</td><td>✅ 通过</td></tr>
+                    <tr><td>5.</td><td>变更登记表</td><td>产品名_NADS变更登记表_vX.Y.Z.html</td><td>✅ 通过</td></tr>
+                    <tr><td>6.</td><td>规范交付书</td><td>产品名_项目规范交付书_vX.Y.Z.html</td><td>✅ 通过</td></tr>
+                    <tr><td>7.</td><td>版本历史源码包</td><td>产品名_版本历史源码包_vX.Y.Z.zip</td><td>✅ 通过</td></tr>
+                    <tr><td>8.</td><td>变更登记表源码包</td><td>产品名_NADS变更登记表源码包_vX.Y.Z.zip</td><td>✅ 通过</td></tr>
+                    <tr><td>9.</td><td>规范交付书源码包</td><td>产品名_项目规范交付书源码包_vX.Y.Z.zip</td><td>✅ 通过</td></tr>
+                    <tr><td>10.</td><td>对接记录</td><td>产品名_对接记录_vX.Y.Z.html</td><td>✅ 通过</td></tr>
+                    <tr><td>11.</td><td>整合包</td><td>产品名_整合包_vX.Y.Z.zip</td><td>✅ 通过</td></tr>
+                </table>
+                <h3>检测项结果</h3>
+                <table>
+                    <tr><th>检测项</th><th>标准</th><th>结果</th></tr>
+                    <tr><td>文件名规范</td><td>后缀后无附加内容，编号 1.2.3.</td><td>✅ 通过</td></tr>
+                    <tr><td>版本号一致</td><td>运行件/源码包/版本历史三处一致</td><td>✅ 通过</td></tr>
+                    <tr><td>下载链接有效</td><td>所有链接可访问</td><td>✅ 通过</td></tr>
+                    <tr><td>HTML与源码同步</td><td>源码包解压内容与在线HTML一致</td><td>✅ 通过</td></tr>
+                    <tr><td>三网站风格</td><td>符合总纲第 9 章风格规范</td><td>✅ 通过</td></tr>
+                    <tr><td>手机适配</td><td>390px 无横向溢出</td><td>✅ 通过</td></tr>
+                </table>
+                <h3>结论</h3>
+                <div class="note"><strong>全部通过。</strong>本次交付符合九件交付系统 v4.2.1 规范，可交付。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        九件交付系统 · 项目规范交付书 v4.2.1 · 样板文件 · 项目实时需求规范 + 自检报告（按版本收录）
+    </div>
+</div>
+<script>
+function toggleAcc(head) {
+    var body = head.nextElementSibling;
+    var arrow = head.querySelector('.arrow');
+    if (body.classList.contains('open')) {
+        body.classList.remove('open');
+        arrow.textContent = '▶';
+    } else {
+        body.classList.add('open');
+        arrow.textContent = '▼';
+    }
+}
+document.querySelectorAll('.nav-tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+        document.querySelectorAll('.nav-tab').forEach(function(t) {
+            t.classList.remove('on');
+            t.classList.add('off');
+        });
+        tab.classList.add('on');
+        tab.classList.remove('off');
+        var target = tab.getAttribute('data-tab');
+        document.getElementById('tab-spec').style.display = (target === 'spec') ? '' : 'none';
+        document.getElementById('tab-report').style.display = (target === 'report') ? '' : 'none';
+    });
+});
+</script>
+</body>
+</html>
