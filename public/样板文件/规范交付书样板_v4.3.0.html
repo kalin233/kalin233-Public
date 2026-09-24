@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>示例项目名称 · 项目规范交付书 【版本号填写】</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); min-height: 100vh; padding: 30px 15px 60px; }
+.container { max-width: 920px; margin: 0 auto; }
+.header { text-align: center; color: #fff; margin-bottom: 24px; }
+.header h1 { font-size: 30px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.88; }
+.tabs { display: flex; gap: 8px; justify-content: center; margin-bottom: 24px; }
+.tab-btn { padding: 10px 24px; border-radius: 999px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); cursor: pointer; font-size: 14px; }
+.tab-btn.active { background: #5B8DEF; border-color: #5B8DEF; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.section { background: #fff; border-radius: 14px; padding: 22px 24px; margin-bottom: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.section > h2 { font-size: 19px; color: #1a1a2e; padding-bottom: 8px; margin-bottom: 14px; border-bottom: 2px solid #5B8DEF; }
+.section h3 { font-size: 15px; color: #5B8DEF; margin: 18px 0 8px; }
+.section p.lead { font-size: 13.5px; color: #555; line-height: 1.8; margin-bottom: 10px; }
+.accordion-item { border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.accordion-header { padding: 14px 18px; background: #f8fafc; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #1a1a2e; font-size: 14px; }
+.accordion-header .arrow { transition: transform 0.3s; }
+.accordion-item.open .accordion-header .arrow { transform: rotate(180deg); }
+.accordion-body { display: none; padding: 16px 18px; font-size: 13px; color: #444; line-height: 1.8; }
+.accordion-item.open .accordion-body { display: block; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 10px 0; table-layout: fixed; }
+th { background: #eff6ff; color: #1e40af; padding: 10px 12px; text-align: center; border: 1px solid #bfdbfe; }
+td { padding: 10px 12px; border: 1px solid #e2e8f0; color: #444; line-height: 1.6; vertical-align: middle; text-align: center; word-break: break-word; }
+.note { background: #F1F5FF; border-left: 4px solid #5B8DEF; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #1e3a8a; line-height: 1.7; }
+.footer { text-align: center; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-top: 10px; }
+@media (max-width: 640px) { .container { padding: 0; } .section { padding: 16px; } .header h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>示例项目名称 · 项目规范交付书</h1>
+        <p>项目规范 ｜ 自检报告 ｜ 【版本号填写】 · 【日期填写】</p>
+    </div>
+    <div class="tabs">
+        <button class="tab-btn active" data-tab="spec">项目规范</button>
+        <button class="tab-btn" data-tab="report">自检报告</button>
+    </div>
+    <!-- 项目规范 -->
+    <div class="tab-content active" id="spec">
+        <div class="section">
+            <h2>一、项目基础信息</h2>
+            <table>
+                <tr><th style="width:25%">项目名称</th><td>【项目名称填写】</td></tr>
+                <tr><th>项目版本</th><td>【版本号填写】</td></tr>
+                <tr><th>交付日期</th><td>【日期填写】</td></tr>
+                <tr><th>主交付物类型</th><td>【类型填写：APK/EXE/网页/小程序等】</td></tr>
+            </table>
+        </div>
+        <div class="section">
+            <h2>二、三网站页面规范</h2>
+            <h3>2.1 历程网站</h3>
+            <p class="lead">【历程网站结构规范填写：版本卡片布局、下载按钮样式、标签规范等】</p>
+            <h3>2.2 变更登记表</h3>
+            <p class="lead">【变更登记表结构规范填写：三大区域、核对规则等】</p>
+            <h3>2.3 项目规范交付书</h3>
+            <p class="lead">【本页面结构规范填写：双Tab、手风琴、报告格式等】</p>
+        </div>
+        <div class="section">
+            <h2>三、项目需求登记表</h2>
+            <table>
+                <tr><th style="width:8%">编号</th><th style="width:30%">需求描述</th><th style="width:15%">提出时间</th><th style="width:12%">确认状态</th><th style="width:12%">实施状态</th><th>备注</th></tr>
+                <tr><td>【填写】</td><td>【填写】</td><td>【填写】</td><td>已确认</td><td>已实施</td><td>【填写】</td></tr>
+            </table>
+            <div class="note"><strong>默认规则：</strong>甲方没提要求、或提了没确认 → 一律默认按总纲，不改。可定制范围只限总纲 B 类。</div>
+        </div>
+    </div>
+    <!-- 自检报告 -->
+    <div class="tab-content" id="report">
+        <div class="section">
+            <h2>自检报告 · 【版本号填写】</h2>
+            <p class="lead">报告生成时间：【日期时间填写】 ｜ 报告编号：【编号填写】</p>
+            <div class="accordion-item open">
+                <div class="accordion-header">1. 交付物完整性检查 <span class="arrow">▼</span></div>
+                <div class="accordion-body">
+                    <table>
+                        <tr><th>检查项</th><th>结果</th><th>说明</th></tr>
+                        <tr><td>九件基础件齐全</td><td>通过</td><td>1~9号件全部生成</td></tr>
+                        <tr><td>扩展件齐全</td><td>通过</td><td>对接记录、整合包等</td></tr>
+                        <tr><td>文件名规范</td><td>通过</td><td>后缀后无额外内容</td></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">2. 版本号一致性检查 <span class="arrow">▼</span></div>
+                <div class="accordion-body">
+                    <p>【检查结果填写：运行件、源码包、版本历史三处版本号一致】</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">3. 下载链接有效性检查 <span class="arrow">▼</span></div>
+                <div class="accordion-body">
+                    <p>【检查结果填写：所有下载链接可访问，多源链接已配置】</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">4. 三网站UI规范检查 <span class="arrow">▼</span></div>
+                <div class="accordion-body">
+                    <p>【检查结果填写：配色、字体、圆角、按钮样式符合总纲】</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header">5. 信息公开确认检查 <span class="arrow">▼</span></div>
+                <div class="accordion-body">
+                    <p>【检查结果填写：无未确认项目信息外泄】</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">示例项目名称 · 项目规范交付书 【版本号填写】 · 【日期填写】</div>
+</div>
+<script>
+(function () {
+    var tabs = document.querySelectorAll('.tab-btn');
+    var contents = document.querySelectorAll('.tab-content');
+    tabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            tabs.forEach(function (t) { t.classList.remove('active'); });
+            contents.forEach(function (c) { c.classList.remove('active'); });
+            tab.classList.add('active');
+            document.getElementById(tab.getAttribute('data-tab')).classList.add('active');
+        });
+    });
+    var items = document.querySelectorAll('.accordion-item');
+    items.forEach(function (item) {
+        item.querySelector('.accordion-header').addEventListener('click', function () {
+            items.forEach(function (i) { if (i !== item) i.classList.remove('open'); });
+            item.classList.toggle('open');
+        });
+    });
+})();
+</script>
+</body>
+</html>
