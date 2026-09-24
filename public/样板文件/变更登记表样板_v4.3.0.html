@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>示例项目名称 · EXAMPLE变更登记表 【版本号填写】</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 30px 15px 60px; }
+.container { max-width: 920px; margin: 0 auto; }
+.header { text-align: center; color: #fff; margin-bottom: 24px; }
+.header h1 { font-size: 30px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.88; }
+.nav-anchor { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.nav-anchor a { display: inline-block; padding: 7px 16px; border-radius: 999px; background: rgba(255,255,255,0.16); color: #fff; text-decoration: none; font-size: 13px; border: 1px solid rgba(255,255,255,0.35); }
+.section { background: #fff; border-radius: 14px; padding: 22px 24px; margin-bottom: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.section > h2 { font-size: 19px; color: #1a1a2e; padding-bottom: 8px; margin-bottom: 14px; border-bottom: 2px solid #764ba2; }
+.section h3 { font-size: 15px; color: #5B8DEF; margin: 18px 0 8px; }
+.section p.lead { font-size: 13.5px; color: #555; line-height: 1.8; margin-bottom: 10px; }
+.warn { background: #FEF2F2; border-left: 4px solid #EF4444; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #7f1d1d; line-height: 1.7; }
+.note { background: #F1F5FF; border-left: 4px solid #5B8DEF; border-radius: 8px; padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #1e3a8a; line-height: 1.7; }
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 10px 0; table-layout: fixed; }
+th { background: #f1edff; color: #4c3f9e; padding: 8px 10px; text-align: center; border: 1px solid #e2dbfa; }
+td { padding: 8px 10px; border: 1px solid #ece9f7; color: #444; line-height: 1.6; vertical-align: middle; text-align: center; word-break: break-word; }
+.tag-btn { padding: 6px 14px; font-size: 13px; border-radius: 999px; border: 1px solid #d8d2f5; background: #fff; color: #4c3f9e; cursor: pointer; }
+.tag-btn.active { background: #764ba2; color: #fff; border-color: #764ba2; }
+.problem { background: #FEF2F2; border-left: 4px solid #EF4444; border-radius: 8px; padding: 12px 16px; margin: 10px 0; }
+.problem .title { font-weight: 700; color: #991B1B; font-size: 14px; margin-bottom: 4px; }
+.problem .desc { font-size: 13.5px; color: #7f1d1d; line-height: 1.75; }
+.solution { background: #ECFDF5; border-left: 4px solid #10B981; border-radius: 8px; padding: 12px 16px; margin: 10px 0; }
+.solution .title { font-weight: 700; color: #065F46; font-size: 14px; margin-bottom: 4px; }
+.solution .desc { font-size: 13.5px; color: #064e3b; line-height: 1.75; }
+.solution .desc li { margin: 3px 0 3px 18px; }
+.state-todo { color: #B45309; font-weight: 700; }
+.state-done { color: #059669; font-weight: 700; }
+.state-wait { color: #6B7280; font-weight: 700; }
+.footer { text-align: center; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-top: 10px; }
+.dl-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 600; background: #5B8DEF; color: #fff; }
+#sourceToast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(26,27,46,0.95); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; z-index: 9999; opacity: 0; transition: all 0.3s ease; pointer-events: none; }
+#sourceToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+@media (max-width: 640px) { .container { padding: 0; } .section { padding: 16px; } .header h1 { font-size: 24px; } }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>示例项目名称 · EXAMPLE变更登记表</h1>
+        <p>总纲更新管理 ｜ 避坑知识库（权威源） ｜ 项目经验沉淀 ｜ 【版本号填写】 · 【日期填写】</p>
+    </div>
+    <div class="nav-anchor">
+        <a href="#s1">一、总纲更新管理</a>
+        <a href="#s2">二、避坑知识库</a>
+        <a href="#s3">三、项目经验沉淀</a>
+    </div>
+    <!-- 一、总纲更新管理 -->
+    <div class="section" id="s1">
+        <h2>一、总纲更新管理</h2>
+        <p class="lead">本区用于每次<strong>项目起始、项目节点、项目改进</strong>等情况对总纲进行内容更新与修改的统一登记。</p>
+        <h3>1.1 变更登记表（只登记系统未收录内容）</h3>
+        <div class="warn"><strong>核对规则：</strong>本表只保留<strong>当前项目收到、但总纲版本中尚未包含</strong>的内容。总纲已有→标记「已登记」；总纲没有→标记「未登记」。</div>
+        <table>
+            <tr><th style="width:8%">编号</th><th style="width:26%">收到的内容</th><th style="width:11%">触发场景</th><th style="width:11%">涉及章节</th><th style="width:12%">影响类别</th><th style="width:10%">核对结果</th><th style="width:8%">状态</th><th style="width:8%">归属版本</th></tr>
+            <tr><td>【填写】</td><td>【填写】</td><td>【填写】</td><td>【填写】</td><td>【填写】</td><td class="state-done">已登记</td><td class="state-done">已实施</td><td>【填写】</td></tr>
+        </table>
+        <h3>1.1.1 编译环境收集登记</h3>
+        <table>
+            <tr><th style="width:8%">编号</th><th style="width:20%">编译环境</th><th style="width:14%">平台</th><th style="width:22%">用途</th><th style="width:14%">核对结果</th><th style="width:8%">状态</th><th style="width:8%">归属版本</th></tr>
+            <tr><td>【填写】</td><td>【填写】</td><td>【填写】</td><td>【填写】</td><td class="state-done">已登记</td><td class="state-done">已收录</td><td>【填写】</td></tr>
+        </table>
+        <h3>1.2 变更流程</h3>
+        <p class="lead">1. 登记变更 → 2. 影响类别判断 → 3. 确认后实施 → 4. 总纲版本记录追加条目 → 5. 状态标「已实施」。</p>
+    </div>
+    <!-- 二、避坑知识库 -->
+    <div class="section" id="s2">
+        <h2>二、避坑知识库（权威源）</h2>
+        <p class="lead">本区是总纲避坑清单的<strong>权威来源</strong>：新坑先在本区追加完整案例（现象 + 原因 + 方案），总纲再同步补充规则。</p>
+        <div id="search-panel">
+            <input type="text" id="search-input" placeholder="输入关键词搜索…" style="width:100%;padding:10px 14px;font-size:14px;border:1px solid #d8d2f5;border-radius:10px;box-sizing:border-box;outline:none;margin-bottom:10px;">
+            <div id="tag-btns" style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="tag-btn active" data-tag="">全部</button>
+                <button class="tag-btn" data-tag="规划">规划</button>
+                <button class="tag-btn" data-tag="打包">打包</button>
+                <button class="tag-btn" data-tag="环境签名">环境签名</button>
+                <button class="tag-btn" data-tag="多平台">多平台</button>
+                <button class="tag-btn" data-tag="质量验收">质量验收</button>
+                <button class="tag-btn" data-tag="文档维护">文档维护</button>
+            </div>
+            <div id="search-hint" style="font-size:12.5px;color:#6B7280;margin-top:10px;">加载中…</div>
+        </div>
+        <h3>2.1 交付规划阶段</h3>
+        <div class="problem" data-tags="规划 需求">
+            <div class="title">问题：【问题现象填写】</div>
+            <div class="desc">【问题详细描述填写】</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：【方案标题填写】</div>
+            <div class="desc"><ul><li>【解决方案要点1填写】</li><li>【解决方案要点2填写】</li></ul></div>
+        </div>
+        <h3>2.2 交付打包阶段</h3>
+        <div class="problem" data-tags="打包 清单">
+            <div class="title">问题：【问题现象填写】</div>
+            <div class="desc">【问题详细描述填写】</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：【方案标题填写】</div>
+            <div class="desc"><ul><li>【解决方案要点填写】</li></ul></div>
+        </div>
+    </div>
+    <!-- 三、项目经验沉淀 -->
+    <div class="section" id="s3">
+        <h2>三、项目经验沉淀（其他项目可吸取内容）</h2>
+        <p class="lead">本区收录从各项目中提炼、可在后续项目中直接吸取的内容。所有条目保持<strong>匿名化</strong>。</p>
+        <h3>3.1 正向实践库</h3>
+        <table>
+            <tr><th style="width:30%">实践</th><th style="width:40%">做法</th><th>效果</th></tr>
+            <tr><td>【填写】</td><td>【填写】</td><td>【填写】</td></tr>
+        </table>
+        <h3>3.2 编译环境与模板资产登记</h3>
+        <table>
+            <tr><th style="width:16%">类别</th><th style="width:22%">资产</th><th style="width:28%">内容构成</th><th>我方提供</th><th>官方源</th></tr>
+            <tr><td>【填写】</td><td>【填写】</td><td>【填写】</td><td><a class="dl-btn" href="【aka链接填写】" target="_blank">下载</a></td><td><a class="dl-btn" href="【官方链接填写】" target="_blank">官方下载</a></td></tr>
+        </table>
+        <h3>3.3 下载链接区（单源 aka 短链）</h3>
+        <table>
+            <tr><th style="width:34%">交付物</th><th>下载链接</th></tr>
+            <tr><td>1. 示例项目名称_总纲_【版本号填写】.html</td><td><a class="dl-btn" href="【aka链接填写】" target="_blank">下载</a></td></tr>
+            <tr><td>2. 示例项目名称_总纲源码包_【版本号填写】.zip</td><td><a class="dl-btn" href="【aka链接填写】" target="_blank">下载</a></td></tr>
+        </table>
+    </div>
+    <div class="footer">示例项目名称 · EXAMPLE变更登记表 【版本号填写】 · 【日期填写】</div>
+</div>
+<script>
+(function () {
+    var input = document.getElementById('search-input');
+    var btns = document.querySelectorAll('#tag-btns .tag-btn');
+    var hint = document.getElementById('search-hint');
+    var activeTag = '';
+    function apply() {
+        if (!input) return;
+        var kw = (input.value || '').trim().toLowerCase();
+        var shown = 0, total = 0;
+        document.querySelectorAll('#s2 .problem').forEach(function (b) {
+            total++;
+            var tags = (b.getAttribute('data-tags') || '').toLowerCase();
+            var tOk = !activeTag || tags.indexOf(activeTag.toLowerCase()) !== -1;
+            var kOk = !kw || (b.textContent || '').toLowerCase().indexOf(kw) !== -1;
+            var show = tOk && kOk;
+            if (show) shown++;
+            b.style.display = show ? '' : 'none';
+            var sol = b.nextElementSibling;
+            if (sol && sol.classList.contains('solution')) sol.style.display = show ? '' : 'none';
+        });
+        hint.textContent = (activeTag || kw) ? ('命中 ' + shown + ' / ' + total + ' 条') : ('共 ' + total + ' 条，全部显示中。');
+    }
+    if (input) input.addEventListener('input', apply);
+    apply();
+    btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            btns.forEach(function (x) { x.classList.remove('active'); });
+            btn.classList.add('active');
+            activeTag = btn.getAttribute('data-tag') || '';
+            apply();
+        });
+    });
+})();
+</script>
+</body>
+</html>
