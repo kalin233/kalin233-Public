@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九件交付系统 · 对接记录 v4.2.1</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f0f2f5;
+    min-height: 100vh;
+    padding: 20px 15px 60px;
+}
+.container { max-width: 860px; margin: 0 auto; }
+.header {
+    text-align: center; margin-bottom: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 14px; padding: 24px; color: #fff;
+}
+.header h1 { font-size: 26px; margin-bottom: 6px; }
+.header p { font-size: 13px; opacity: 0.88; }
+.chat-area {
+    background: #e8eaf0; border-radius: 14px; padding: 20px;
+    min-height: 400px;
+}
+.msg-row { display: flex; margin-bottom: 18px; align-items: flex-start; gap: 10px; }
+.msg-row.user { flex-direction: row-reverse; }
+.avatar {
+    width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; color: #fff;
+}
+.avatar.ai { background: linear-gradient(135deg, #667eea, #764ba2); }
+.avatar.user { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+.msg-bubble {
+    max-width: 72%; padding: 12px 16px; border-radius: 14px;
+    font-size: 13.5px; line-height: 1.75; word-break: break-word;
+}
+.msg-bubble.ai { background: #fff; color: #333; border-top-left-radius: 4px; }
+.msg-bubble.user { background: #95ec69; color: #1a1a1a; border-top-right-radius: 4px; }
+.msg-time { font-size: 11px; color: #999; margin-top: 4px; text-align: center; }
+.msg-meta { font-size: 11px; color: #999; margin-bottom: 4px; }
+.msg-row.user .msg-meta { text-align: right; }
+.code-card {
+    background: #1e1e2e; color: #cdd6f4; border-radius: 10px;
+    padding: 12px 14px; margin: 8px 0; font-family: "SF Mono", "Consolas", monospace;
+    font-size: 12px; line-height: 1.6; overflow-x: auto; white-space: pre-wrap;
+}
+.code-card .lang { color: #89b4fa; font-size: 11px; margin-bottom: 6px; display: block; }
+.table-card {
+    background: #fff; border-radius: 10px; padding: 12px; margin: 8px 0;
+    border: 1px solid #e2dbfa; overflow-x: auto;
+}
+.table-card table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.table-card th { background: #f1edff; color: #4c3f9e; padding: 6px 8px; text-align: left; border: 1px solid #e2dbfa; }
+.table-card td { padding: 6px 8px; border: 1px solid #ece9f7; color: #444; }
+.file-card {
+    background: #f8f6ff; border: 1px solid #d8d2f5; border-radius: 10px;
+    padding: 10px 14px; margin: 8px 0; display: flex; align-items: center; gap: 10px;
+}
+.file-card .icon { font-size: 22px; }
+.file-card .info { flex: 1; }
+.file-card .name { font-size: 13px; font-weight: 600; color: #1a1a2e; }
+.file-card .size { font-size: 11px; color: #999; }
+.file-card a { font-size: 12px; color: #5B8DEF; text-decoration: none; }
+.divider {
+    text-align: center; font-size: 11px; color: #bbb; margin: 20px 0;
+    position: relative;
+}
+.divider::before, .divider::after {
+    content: ''; position: absolute; top: 50%; width: 35%; height: 1px; background: #ddd;
+}
+.divider::before { left: 5%; }
+.divider::after { right: 5%; }
+.footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; }
+@media (max-width: 640px) {
+    .msg-bubble { max-width: 82%; }
+    .header h1 { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>九件交付系统 · 对接记录</h1>
+        <p>对接全过程对话卡片记录 ｜ 每次更新只增新、不改不删旧 ｜ v4.2.1 · 样板文件</p>
+    </div>
+
+    <div class="chat-area">
+
+        <div class="msg-time">2026-XX-XX 09:00</div>
+
+        <!-- AI 消息 -->
+        <div class="msg-row">
+            <div class="avatar ai">AI</div>
+            <div>
+                <div class="msg-meta">九件交付系统助手</div>
+                <div class="msg-bubble ai">
+                    你好！我是九件交付系统助手。请发送项目总纲，我将按照九件交付系统规范为你完成全额交付。
+                </div>
+            </div>
+        </div>
+
+        <!-- 用户消息 -->
+        <div class="msg-row user">
+            <div class="avatar user">甲</div>
+            <div>
+                <div class="msg-meta">甲方</div>
+                <div class="msg-bubble user">
+                    这是项目总纲，请按照九件交付系统完成交付。
+                </div>
+                <div class="file-card">
+                    <div class="icon">📄</div>
+                    <div class="info">
+                        <div class="name">项目总纲.html</div>
+                        <div class="size">128 KB</div>
+                    </div>
+                    <a href="#" target="_blank" rel="noopener">下载</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI 消息（含代码卡片） -->
+        <div class="msg-row">
+            <div class="avatar ai">AI</div>
+            <div>
+                <div class="msg-meta">九件交付系统助手</div>
+                <div class="msg-bubble ai">
+                    已收到总纲。正在分析需求并生成交付物。以下是本次交付的九件清单：
+                    <div class="table-card">
+                        <table>
+                            <tr><th>编号</th><th>交付物</th><th>状态</th></tr>
+                            <tr><td>1.</td><td>主交付物</td><td>✅ 已完成</td></tr>
+                            <tr><td>2.</td><td>源码包</td><td>✅ 已完成</td></tr>
+                            <tr><td>3.</td><td>编译环境</td><td>✅ 已完成</td></tr>
+                            <tr><td>4.</td><td>版本历史</td><td>✅ 已完成</td></tr>
+                            <tr><td>5.</td><td>变更登记表</td><td>✅ 已完成</td></tr>
+                            <tr><td>6.</td><td>规范交付书</td><td>✅ 已完成</td></tr>
+                            <tr><td>7.</td><td>版本历史源码包</td><td>✅ 已完成</td></tr>
+                            <tr><td>8.</td><td>变更登记表源码包</td><td>✅ 已完成</td></tr>
+                            <tr><td>9.</td><td>规范交付书源码包</td><td>✅ 已完成</td></tr>
+                        </table>
+                    </div>
+                    编译命令如下：
+                    <div class="code-card"><span class="lang">bash</span>cd project
+npm install
+npm run build</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 用户消息 -->
+        <div class="msg-row user">
+            <div class="avatar user">甲</div>
+            <div>
+                <div class="msg-meta">甲方</div>
+                <div class="msg-bubble user">
+                    收到，验收通过。
+                </div>
+            </div>
+        </div>
+
+        <div class="divider">以上为对接记录样板示例，实际使用时追加真实对话</div>
+
+    </div>
+
+    <div class="footer">
+        九件交付系统 · 对接记录 v4.2.1 · 样板文件 · 每次更新只增新、不改不删旧
+    </div>
+</div>
+</body>
+</html>
