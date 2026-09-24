@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>示例项目名称 · 对接记录 【版本号填写】</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; min-height: 100vh; padding: 20px 15px 60px; }
+.container { max-width: 860px; margin: 0 auto; }
+.header { text-align: center; margin-bottom: 20px; padding: 20px; background: #fff; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.header h1 { font-size: 24px; color: #1a1a2e; margin-bottom: 6px; }
+.header p { font-size: 13px; color: #666; }
+.chat-area { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.chat-day { text-align: center; margin: 20px 0 16px; }
+.chat-day span { display: inline-block; padding: 4px 14px; background: #e8e8e8; color: #888; font-size: 12px; border-radius: 999px; }
+.msg { display: flex; margin-bottom: 18px; align-items: flex-start; }
+.msg.user { flex-direction: row-reverse; }
+.avatar { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 700; color: #fff; flex-shrink: 0; }
+.msg.ai .avatar { background: #5B8DEF; margin-right: 10px; }
+.msg.user .avatar { background: #10B981; margin-left: 10px; }
+.bubble-wrap { max-width: 72%; }
+.msg-time { font-size: 11px; color: #999; margin-bottom: 4px; }
+.msg.ai .msg-time { text-align: left; }
+.msg.user .msg-time { text-align: right; }
+.bubble { padding: 12px 16px; border-radius: 12px; font-size: 14px; line-height: 1.7; word-break: break-word; }
+.msg.ai .bubble { background: #f5f7fa; color: #333; border-top-left-radius: 4px; }
+.msg.user .bubble { background: #5B8DEF; color: #fff; border-top-right-radius: 4px; }
+.bubble p { margin-bottom: 8px; }
+.bubble p:last-child { margin-bottom: 0; }
+.bubble ul, .bubble ol { margin: 6px 0 6px 20px; }
+.bubble li { margin-bottom: 4px; }
+.bubble code { background: rgba(0,0,0,0.06); padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: "SF Mono", Consolas, monospace; }
+.msg.user .bubble code { background: rgba(255,255,255,0.2); }
+.card-msg { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px; margin: 8px 0; }
+.card-msg .card-title { font-weight: 700; color: #1a1a2e; font-size: 14px; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid #f0f0f0; }
+.card-msg .card-body { font-size: 13px; color: #444; line-height: 1.7; }
+.card-msg .card-item { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #f0f0f0; }
+.card-msg .card-item:last-child { border-bottom: none; }
+.code-card { background: #1e1e2e; border-radius: 8px; padding: 14px; margin: 8px 0; font-family: "SF Mono", Consolas, monospace; font-size: 12.5px; line-height: 1.6; overflow-x: auto; }
+.code-card .code-lang { color: #888; font-size: 11px; margin-bottom: 8px; text-transform: uppercase; }
+.code-card pre { color: #cdd6f4; white-space: pre-wrap; word-break: break-all; }
+.code-card .keyword { color: #cba6f7; }
+.code-card .string { color: #a6e3a1; }
+.code-card .comment { color: #6c7086; }
+.file-msg { display: flex; align-items: center; gap: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; margin: 6px 0; }
+.file-msg .file-icon { font-size: 24px; }
+.file-msg .file-info { flex: 1; }
+.file-msg .file-name { font-size: 13px; font-weight: 600; color: #1a1a2e; }
+.file-msg .file-size { font-size: 11px; color: #999; }
+.file-msg .file-dl { font-size: 12px; color: #5B8DEF; text-decoration: none; }
+.footer { text-align: center; color: #999; font-size: 12px; margin-top: 20px; padding: 16px; }
+@media (max-width: 640px) { .bubble-wrap { max-width: 85%; } .chat-area { padding: 16px; } .header h1 { font-size: 20px; } }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>示例项目名称 · 对接记录</h1>
+        <p>完整对话记录 ｜ 【版本号填写】 · 【起始日期填写】 ~ 【结束日期填写】</p>
+    </div>
+    <div class="chat-area">
+        <!-- 日期分隔 -->
+        <div class="chat-day"><span>【日期填写】</span></div>
+        <!-- 甲方消息 -->
+        <div class="msg user">
+            <div class="avatar">甲</div>
+            <div class="bubble-wrap">
+                <div class="msg-time">【时间填写】</div>
+                <div class="bubble">
+                    <p>【甲方消息内容填写：项目需求、修改要求、问题反馈等】</p>
+                </div>
+            </div>
+        </div>
+        <!-- 乙方消息 -->
+        <div class="msg ai">
+            <div class="avatar">乙</div>
+            <div class="bubble-wrap">
+                <div class="msg-time">【时间填写】</div>
+                <div class="bubble">
+                    <p>【乙方回复内容填写：方案说明、确认信息、交付说明等】</p>
+                    <ul>
+                        <li>【要点1填写】</li>
+                        <li>【要点2填写】</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 乙方消息 + 卡片 -->
+        <div class="msg ai">
+            <div class="avatar">乙</div>
+            <div class="bubble-wrap">
+                <div class="msg-time">【时间填写】</div>
+                <div class="bubble">
+                    <p>【本次交付更新总结：】</p>
+                    <div class="card-msg">
+                        <div class="card-title">【卡片标题填写：如 v4.3.0 更新总结】</div>
+                        <div class="card-body">
+                            <div class="card-item"><span>【项目1填写】</span><span>【内容1填写】</span></div>
+                            <div class="card-item"><span>【项目2填写】</span><span>【内容2填写】</span></div>
+                            <div class="card-item"><span>【项目3填写】</span><span>【内容3填写】</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 乙方消息 + 代码卡片 -->
+        <div class="msg ai">
+            <div class="avatar">乙</div>
+            <div class="bubble-wrap">
+                <div class="msg-time">【时间填写】</div>
+                <div class="bubble">
+                    <p>【代码示例说明填写：】</p>
+                    <div class="code-card">
+                        <div class="code-lang">【语言填写：如 JavaScript】</div>
+                        <pre><span class="comment">// 【代码注释填写】</span>
+<span class="keyword">function</span> <span class="string">exampleFunction</span>() {
+    <span class="keyword">return</span> <span class="string">"【代码内容填写】"</span>;
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 甲方消息 + 文件 -->
+        <div class="msg user">
+            <div class="avatar">甲</div>
+            <div class="bubble-wrap">
+                <div class="msg-time">【时间填写】</div>
+                <div class="bubble">
+                    <p>【甲方发送文件说明填写：】</p>
+                    <div class="file-msg">
+                        <span class="file-icon">📄</span>
+                        <div class="file-info">
+                            <div class="file-name">【文件名填写.html】</div>
+                            <div class="file-size">【文件大小填写】</div>
+                        </div>
+                        <a class="file-dl" href="【aka链接填写】" target="_blank">下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 乙方消息 + 文件 -->
+        <div class="msg ai">
+            <div class="avatar">乙</div>
+            <div class="bubble-wrap">
+                <div class="msg-time">【时间填写】</div>
+                <div class="bubble">
+                    <p>【乙方发送交付物说明填写：】</p>
+                    <div class="file-msg">
+                        <span class="file-icon">📦</span>
+                        <div class="file-info">
+                            <div class="file-name">【文件名填写.zip】</div>
+                            <div class="file-size">【文件大小填写】</div>
+                        </div>
+                        <a class="file-dl" href="【aka链接填写】" target="_blank">下载</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 日期分隔2 -->
+        <div class="chat-day"><span>【日期2填写】</span></div>
+        <!-- 更多对话... -->
+        <div class="msg user">
+            <div class="avatar">甲</div>
+            <div class="bubble-wrap">
+                <div class="msg-time">【时间填写】</div>
+                <div class="bubble">
+                    <p>【后续对话内容填写...】</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        示例项目名称 · 对接记录 【版本号填写】 · 每次更新只增新，不改不删旧 · 共【对话条数填写】条记录
+    </div>
+</div>
+</body>
+</html>
