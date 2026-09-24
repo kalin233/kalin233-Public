@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NADS交付物选择目录 · 交互样板</title>
+</head>
+<body style="margin:0;padding:16px;background:#F6F5FB;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
+<html style="margin:0;padding:0;">
+<div style="background-color:transparent;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;">
+<div style="max-width:720px;margin:0 auto;box-sizing:border-box;">
+  <!-- 头部 -->
+  <div style="background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:14px;padding:16px 18px;color:#fff;box-sizing:border-box;">
+    <div style="font-size:16px;font-weight:700;margin-bottom:4px;">📦 九件交付系统 · 交付物选择目录</div>
+    <div style="font-size:12px;opacity:.92;line-height:1.6;">项目交付开始前，请勾选本次需要接收的交付物。九件基础件固定交付，扩展件按需勾选。首次确认后固定输出，后续如需增减请主动提出。</div>
+  </div>
+
+  <!-- 九件基础件 -->
+  <div style="margin-top:14px;background:#fff;border-radius:12px;padding:14px 16px;box-sizing:border-box;border:1px solid #EDE9FF;">
+    <div style="font-size:13px;font-weight:700;color:#4c3f9e;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+      <span>基础件区（1-9 · 固定交付）</span>
+      <span style="font-size:11px;color:#9AA0A6;font-weight:400;">勾选状态仅作展示，固定包含</span>
+    </div>
+    <div id="base-list" style="display:flex;flex-direction:column;gap:6px;box-sizing:border-box;"></div>
+  </div>
+
+  <!-- 扩展件 -->
+  <div style="margin-top:12px;background:#fff;border-radius:12px;padding:14px 16px;box-sizing:border-box;border:1px solid #EDE9FF;">
+    <div style="font-size:13px;font-weight:700;color:#4c3f9e;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
+      <span>扩展件区（10+ · 按需勾选）</span>
+      <span style="font-size:11px;color:#9AA0A6;font-weight:400;">默认全选，可取消</span>
+    </div>
+    <div id="ext-list" style="display:flex;flex-direction:column;gap:6px;box-sizing:border-box;"></div>
+  </div>
+
+  <!-- 结果区 -->
+  <div id="result-wrap" style="margin-top:12px;display:none;background:#fff;border-radius:12px;padding:14px 16px;box-sizing:border-box;border:1px solid #D8F0E3;"></div>
+
+  <!-- 按钮 -->
+  <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;box-sizing:border-box;">
+    <div id="btn-confirm" style="flex:1 1 200px;min-height:44px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:14px;font-weight:600;border-radius:10px;cursor:pointer;box-sizing:border-box;user-select:none;">✔ 确认交付物清单</div>
+    <div id="btn-reset" style="flex:1 1 140px;min-height:44px;display:flex;align-items:center;justify-content:center;background:#F3F4F6;color:#5F6670;font-size:13px;font-weight:500;border-radius:10px;cursor:pointer;box-sizing:border-box;user-select:none;border:1px solid #E4E3DD;">↺ 重置选择</div>
+  </div>
+  <div style="font-size:11px;color:#9AA0A6;margin-top:10px;line-height:1.6;box-sizing:border-box;">编号规则：未插入其他交付物时，对接记录网页为第10号；整合包为最后一位；源仓库上传包紧随其后。本目录为对话交互样板，正式版本写入总纲后由各项目套用。</div>
+</div>
+<script>
+(function(){
+  try {
+    var baseItems = [
+      {n:1, name:'总纲', desc:'主规范文档 HTML'},
+      {n:2, name:'总纲源码包', desc:'可编辑源文件 ZIP'},
+      {n:3, name:'编译环境', desc:'构建所需环境包 ZIP'},
+      {n:4, name:'版本历史', desc:'版本历程记录 HTML'},
+      {n:5, name:'NADS变更登记表', desc:'变更记录与登记 HTML'},
+      {n:6, name:'项目规范交付书', desc:'项目级规范文档 HTML'},
+      {n:7, name:'版本历史源码包', desc:'历程网站源码 ZIP'},
+      {n:8, name:'变更登记表源码包', desc:'NADS表源码 ZIP'},
+      {n:9, name:'项目规范交付书源码包', desc:'交付书源码 ZIP'}
+    ];
+    var extItems = [
+      {n:10, name:'对接记录网页', desc:'对话全记录·样板可套用', def:true},
+      {n:11, name:'整合包', desc:'含全部交付物的一键下载包', def:true},
+      {n:12, name:'源仓库上传包', desc:'待上传GitHub双库的资源包', def:true}
+    ];
+    var baseSel = {};
+    var extSel = {};
+
+    function row(item, isBase, checked) {
+      var d = document.createElement('div');
+      d.style.cssText = 'display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:#FAFAFD;border:1px solid #F0EEFF;box-sizing:border-box;';
+      var cb = document.createElement('input');
+      cb.type = 'checkbox';
+      cb.checked = checked;
+      cb.style.cssText = 'width:18px;height:18px;flex:0 0 18px;accent-color:#764ba2;cursor:pointer;';
+      cb.addEventListener('change', function(){
+        if (isBase) {
+          baseSel[item.n] = cb.checked;
+          if (!cb.checked) {
+            noteEl.textContent = '九件基础件固定交付：取消勾选仅改变展示状态，交付时仍包含 ' + item.n + '. ' + item.name + '。';
+            noteEl.style.display = 'block';
+          } else {
+            noteEl.style.display = 'none';
+          }
+        } else {
+          extSel[item.n] = cb.checked;
+        }
+      });
+      var txt = document.createElement('div');
+      txt.style.cssText = 'flex:1 1 auto;min-width:0;';
+      var t1 = document.createElement('div');
+      t1.style.cssText = 'font-size:13px;font-weight:600;color:#1A1B1C;';
+      t1.textContent = item.n + '. ' + item.name;
+      var t2 = document.createElement('div');
+      t2.style.cssText = 'font-size:11px;color:#8B9199;margin-top:1px;';
+      t2.textContent = item.desc;
+      txt.appendChild(t1); txt.appendChild(t2);
+      d.appendChild(cb); d.appendChild(txt);
+      return d;
+    }
+
+    var noteEl = document.createElement('div');
+    noteEl.style.cssText = 'display:none;font-size:12px;color:#9A6A2F;background:#FEF9EF;border:1px solid #F0DFC0;border-radius:8px;padding:8px 10px;margin-bottom:8px;box-sizing:border-box;line-height:1.5;';
+    document.getElementById('base-list').appendChild(noteEl);
+
+    for (var i = 0; i < baseItems.length; i++) {
+      baseSel[baseItems[i].n] = true;
+      document.getElementById('base-list').appendChild(row(baseItems[i], true, true));
+    }
+    for (var j = 0; j < extItems.length; j++) {
+      extSel[extItems[j].n] = extItems[j].def;
+      document.getElementById('ext-list').appendChild(row(extItems[j], false, extItems[j].def));
+    }
+
+    function renderResult() {
+      var rw = document.getElementById('result-wrap');
+      var baseN = 0, extN = 0;
+      var baseNames = [], extNames = [];
+      for (var i = 0; i < baseItems.length; i++) {
+        if (baseSel[baseItems[i].n]) { baseN++; baseNames.push(baseItems[i].name); }
+      }
+      for (var j = 0; j < extItems.length; j++) {
+        if (extSel[extItems[j].n]) { extN++; extNames.push(extNames[j].name); }
+      }
+      var total = baseItems.length + extN;
+      var h = '';
+      h += '<div style="font-size:14px;font-weight:700;color:#35705A;margin-bottom:8px;">✔ 已确认交付物清单（共 ' + total + ' 件）</div>';
+      h += '<div style="font-size:12px;color:#5F6670;line-height:1.8;">';
+      h += '<b>基础件（固定 · 9件）：</b>' + baseNames.join('、') + '<br>';
+      h += '<b>扩展件（勾选 · ' + extN + '件）：</b>' + (extNames.length ? extNames.join('、') : '（未勾选扩展件）') + '<br>';
+      h += '<b>固定说明：</b>九件基础件无论勾选与否均交付；扩展件以本次勾选为准，后续固定输出。</div>';
+      rw.innerHTML = h;
+      rw.style.display = 'block';
+    }
+
+    var btnC = document.getElementById('btn-confirm');
+    btnC.addEventListener('click', renderResult);
+    var btnR = document.getElementById('btn-reset');
+    btnR.addEventListener('click', function(){
+      for (var i = 0; i < baseItems.length; i++) { baseSel[baseItems[i].n] = true; }
+      for (var j = 0; j < extItems.length; j++) { extSel[extItems[j].n] = extItems[j].def; }
+      var cbs = document.querySelectorAll('input[type=checkbox]');
+      for (var k = 0; k < cbs.length; k++) { cbs[k].checked = true; }
+      noteEl.style.display = 'none';
+      document.getElementById('result-wrap').style.display = 'none';
+    });
+  } catch(e) { console.error(e); }
+})();
+</script>
+</div>
+</div>
+</html>
+</body>
+</html>
