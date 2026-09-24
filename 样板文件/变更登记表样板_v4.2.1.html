@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>九件交付系统 · NADS变更登记表 v4.2.1</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 30px 15px 60px;
+}
+.container { max-width: 920px; margin: 0 auto; }
+.header { text-align: center; color: #fff; margin-bottom: 24px; }
+.header h1 { font-size: 30px; margin-bottom: 8px; }
+.header p { font-size: 14px; opacity: 0.88; }
+.nav-anchor { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px; }
+.nav-anchor a {
+    display: inline-block; padding: 7px 16px; border-radius: 999px;
+    background: rgba(255,255,255,0.16); color: #fff; text-decoration: none;
+    font-size: 13px; border: 1px solid rgba(255,255,255,0.35);
+}
+.nav-anchor a:hover { background: rgba(255,255,255,0.3); }
+.section {
+    background: #fff; border-radius: 14px; padding: 22px 24px;
+    margin-bottom: 18px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+.section > h2 { font-size: 19px; color: #1a1a2e; padding-bottom: 8px; margin-bottom: 14px; border-bottom: 2px solid #764ba2; }
+.section h3 { font-size: 15px; color: #5B8DEF; margin: 18px 0 8px; }
+.section p.lead { font-size: 13.5px; color: #555; line-height: 1.8; margin-bottom: 10px; }
+.warn {
+    background: #FEF2F2; border-left: 4px solid #EF4444; border-radius: 8px;
+    padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #7f1d1d; line-height: 1.7;
+}
+.note {
+    background: #F1F5FF; border-left: 4px solid #5B8DEF; border-radius: 8px;
+    padding: 12px 16px; margin: 10px 0; font-size: 13px; color: #1e3a8a; line-height: 1.7;
+}
+table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin: 10px 0; }
+th { background: #f1edff; color: #4c3f9e; padding: 8px 10px; text-align: left; border: 1px solid #e2dbfa; }
+td { padding: 8px 10px; border: 1px solid #ece9f7; color: #444; line-height: 1.6; vertical-align: top; }
+.tag-btn { padding: 6px 14px; font-size: 13px; border-radius: 999px; border: 1px solid #d8d2f5; background: #fff; color: #4c3f9e; cursor: pointer; }
+.tag-btn.active { background: #764ba2; color: #fff; border-color: #764ba2; }
+.problem {
+    background: #FEF2F2; border-left: 4px solid #EF4444;
+    border-radius: 8px; padding: 12px 16px; margin: 10px 0;
+}
+.problem .title { font-weight: 700; color: #991B1B; font-size: 14px; margin-bottom: 4px; }
+.problem .desc { font-size: 13.5px; color: #7f1d1d; line-height: 1.75; }
+.solution {
+    background: #ECFDF5; border-left: 4px solid #10B981;
+    border-radius: 8px; padding: 12px 16px; margin: 10px 0;
+}
+.solution .title { font-weight: 700; color: #065F46; font-size: 14px; margin-bottom: 4px; }
+.solution .desc { font-size: 13.5px; color: #064e3b; line-height: 1.75; }
+.solution .desc li { margin: 3px 0 3px 18px; }
+.state-todo { color: #B45309; font-weight: 700; }
+.state-done { color: #059669; font-weight: 700; }
+.state-wait { color: #6B7280; font-weight: 700; }
+.footer { text-align: center; color: rgba(255,255,255,0.85); font-size: 12.5px; margin-top: 10px; }
+@media (max-width: 640px) {
+    .container { padding: 0; }
+    .section { padding: 16px; }
+    .header h1 { font-size: 24px; }
+}
+@media (max-width: 760px) {
+    table { min-width: 0; }
+    .container { padding: 12px 10px; }
+    .container > * { max-width: 100%; box-sizing: border-box; }
+    .card table, .section table, table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+    h2 { font-size: 18px; }
+    h3 { font-size: 15px; }
+    .footer { font-size: 11px; padding: 12px 8px; }
+    .nav a { font-size: 12px; padding: 8px 10px; display: inline-block; }
+    .section { padding: 12px; }
+    .search-box { width: 100%; box-sizing: border-box; }
+    .tag { font-size: 11px; padding: 2px 6px; }
+}
+#sourceToast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(26,27,46,0.95); color: #fff; padding: 12px 20px; border-radius: 12px; font-size: 13px; z-index: 9999; opacity: 0; transition: all 0.3s ease; box-shadow: 0 4px 20px rgba(0,0,0,0.2); pointer-events: none; }
+#sourceToast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+#sourceToast .src-icon { margin-right: 6px; }
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>九件交付系统 · NADS变更登记表</h1>
+        <p>总纲更新管理 ｜ 避坑知识库（权威源） ｜ 项目经验沉淀 ｜ v4.2.1 · 样板文件</p>
+    </div>
+    <div class="nav-anchor">
+        <a href="#s1">一、总纲更新管理</a>
+        <a href="#s2">二、避坑知识库</a>
+        <a href="#s3">三、项目经验沉淀</a>
+    </div>
+    <div class="section" id="s1">
+        <h2>一、总纲更新管理</h2>
+        <p class="lead">本区用于每次<strong>项目起始、项目节点、项目改进</strong>等情况对总纲进行内容更新与修改的统一登记。所有总纲变更先在此登记、走状态流转，确认后才写入总纲；未确认的变更一律不写入。</p>
+        <h3>1.1 变更登记表（只登记系统未收录内容）</h3>
+        <div class="warn"><strong>核对规则：</strong>本表只保留<strong>当前项目收到、但九件交付系统版本中尚未包含</strong>的内容。核对方式：项目中出现的内容 → 对照总纲 / 本表核对 → <strong>总纲里已有</strong> → 标记「已登记」，无需变更；<strong>总纲里没有</strong> → 标记「未登记」，保留在本表等待登记进总纲。</div>
+        <table>
+            <tr><th style="width:8%">编号</th><th style="width:26%">收到的内容</th><th style="width:11%">触发场景</th><th style="width:11%">涉及章节</th><th style="width:12%">影响类别</th><th style="width:10%">核对结果</th><th style="width:8%">状态</th><th style="width:8%">归属版本</th></tr>
+            <tr><td>B-001</td><td>（新收到内容在此登记：先核对总纲是否已有，没有则留待登记）</td><td>—</td><td>—</td><td>—</td><td class="state-wait">待核对</td><td class="state-wait">未登记</td><td>—</td></tr>
+        </table>
+        <h3>1.1.1 编译环境收集登记</h3>
+        <p class="lead">收集项目交付过程中使用过的编译环境，逐条登记。核对方式：对照总纲「编译环境资产库」——<strong>资产库已有</strong> → 标记「已登记」，无需补录；<strong>资产库没有</strong> → 标记「未登记」，交付结束后补录进资产库上架。</p>
+        <table>
+            <tr><th style="width:8%">编号</th><th style="width:20%">编译环境</th><th style="width:14%">平台</th><th style="width:22%">用途</th><th style="width:14%">核对结果</th><th style="width:8%">状态</th><th style="width:8%">归属版本</th></tr>
+            <tr><td>C-001</td><td>（项目中使用到的编译环境在此登记）</td><td>—</td><td>—</td><td class="state-wait">待核对</td><td class="state-wait">未收录</td><td>—</td></tr>
+        </table>
+        <h3>1.2 变更流程（总纲 11.2）</h3>
+        <p class="lead">1. 登记变更 → 2. 影响类别判断 → 3. 确认后实施 → 4. 总纲版本记录追加条目 → 5. 状态标「已实施」并记录归属版本。</p>
+        <h3>1.3 可变 / 不可变对照（总纲 11.3）</h3>
+        <table>
+            <tr><th style="width:14%">类别</th><th style="width:56%">条目</th><th>处理规则</th></tr>
+            <tr><td><strong>A 不可变</strong></td><td>A1 三层九件架构 + 九件保底<br>A2 编号规则：1. 2. 3. 不用圈号<br>A3 增量演进：旧内容零改动<br>A4 一单一签：甲方确认才完成<br>A5 匿名化 + 信息公开确认机制<br>A6 版本号规范：X.Y.Z<br>A7 四道门禁必须存在<br>A8 8 步流程闭环必须走完</td><td>任何项目不得偏离；确需更改 → 走 11.2 变更流程先升级总纲</td></tr>
+            <tr><td><strong>B 可变</strong></td><td>B1 网站配色/字体/圆角/按钮色<br>B2 三网站页面结构<br>B3 命名中平台名/后缀词<br>B4 扩展件种类与数量<br>B5 门禁检查项明细<br>B6 模板资产库内容<br>B7 三网站文案风格/语气<br>B8 流程步骤中的工具与实现方式</td><td>甲方提出 → 登记确认 → 实施；总纲默认值不因项目定制而修改</td></tr>
+        </table>
+        <h3>1.4 暂缓队列</h3>
+        <table>
+            <tr><th style="width:22%">暂缓项</th><th style="width:46%">原因</th><th>恢复条件</th></tr>
+            <tr><td>永久云链接方案</td><td>方案未定，暂以当前可用链接先行</td><td>方案确定后统一增设修改</td></tr>
+        </table>
+        <h3>1.5 总纲版本演进记录</h3>
+        <table>
+            <tr><th style="width:12%">版本</th><th style="width:16%">日期</th><th>变更内容</th></tr>
+            <tr><td><strong>v4.2.1</strong></td><td>2026-09-24</td><td>公开库结构整理：样板文件与自检脚本上传至仓库代码目录（中文命名带版本号、分类分开）；编译环境整理至 Releases（英文命名、单独 tag）；上传库命名规则与结构规则写入总纲 10.6.1</td></tr>
+        </table>
+    </div>
+    <div class="section" id="s2">
+        <h2>二、避坑知识库（权威源）</h2>
+        <p class="lead">本区是总纲第 14 章「通用避坑清单」的<strong>权威来源</strong>：新坑先在本区追加完整案例（现象 + 原因 + 方案），总纲 14 章再同步补充规则级语句——<strong>先有案例，再有规则</strong>。</p>
+        <div id="search-panel">
+            <input type="text" id="search-input" placeholder="输入关键词…" style="width:100%;padding:10px 14px;font-size:14px;border:1px solid #d8d2f5;border-radius:10px;box-sizing:border-box;outline:none;margin-bottom:10px;">
+            <div id="tag-btns" style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="tag-btn active" data-tag="">全部</button>
+                <button class="tag-btn" data-tag="规划">规划</button>
+                <button class="tag-btn" data-tag="打包">打包</button>
+                <button class="tag-btn" data-tag="环境签名">环境签名</button>
+                <button class="tag-btn" data-tag="多平台">多平台</button>
+                <button class="tag-btn" data-tag="质量验收">质量验收</button>
+                <button class="tag-btn" data-tag="文档维护">文档维护</button>
+            </div>
+            <div id="search-hint" style="font-size:12.5px;color:#6B7280;margin-top:10px;">加载中…</div>
+        </div>
+        <h3>2.1 交付规划阶段</h3>
+        <div class="problem" data-tags="规划 需求">
+            <div class="title">问题：需求失控——开发中自行添加未确认功能</div>
+            <div class="desc">交付人觉得"这个功能加上更好"，未与用户确认就直接开发，导致交付范围膨胀、验收时出现分歧。</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：只做确认过的需求，新需求先记录、给方案、再确认</div>
+            <div class="desc"><ul><li>新需求先记录到需求清单，给出实现方案，用户确认后才开始做</li><li>用户明确说"其他部分一点都不能修改"时，只改指定部分</li><li>遇到系统限制，先说明限制，再给替代方案</li></ul></div>
+        </div>
+        <h3>2.2 交付打包阶段</h3>
+        <div class="problem" data-tags="打包 清单">
+            <div class="title">问题：交付漏件——只发主体文件，其他件被遗漏</div>
+            <div class="desc">只交付运行件，忘了源码包、环境包、文档与源码包。用户换设备、环境重置时找不到东西。</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：九件核销表逐件勾选，缺一件不交付（G4 门禁）</div>
+            <div class="desc"><ul><li>按九件清单逐一生成/复用，文件名逐个核对</li><li>编译环境包无变化时复用旧包，但必须列入清单</li><li>九件齐 + 命名对 + 文件可访问，才允许进入发布验收</li></ul></div>
+        </div>
+        <h3>2.3 环境与签名管理</h3>
+        <div class="problem" data-tags="环境签名 环境">
+            <div class="title">问题：环境重置后无法编译——SDK/依赖靠在线环境存活</div>
+            <div class="desc">编译环境依赖在线工作区的持久性。环境一旦重置，SDK、编译器、依赖全部丢失，重新下载配置耗时数小时。</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：编译环境打包保存 + 一键安装脚本，快速恢复</div>
+            <div class="desc"><ul><li>编译环境包（工具链 + 离线依赖 + 环境说明 + 一键安装脚本）随每次交付打包</li><li>环境丢失后按说明快速恢复</li><li>假设每次编译前环境都是空的，不依赖任何在线持久性</li></ul></div>
+        </div>
+        <h3>2.4 多平台与网页部署</h3>
+        <div class="problem" data-tags="多平台 网页">
+            <div class="title">问题：网页版本地服务 404——打开页面显示文件不存在</div>
+            <div class="desc">网页版启动本地服务后访问 404，通常是服务默认目录与站点文件实际位置不一致。</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：显式指定站点根目录启动服务</div>
+            <div class="desc"><ul><li>启动命令显式指定站点目录，不依赖默认目录</li><li>交付说明中写明启动命令与端口，用户复制即可运行</li></ul></div>
+        </div>
+        <h3>2.5 质量与验收</h3>
+        <div class="problem" data-tags="质量验收 测试">
+            <div class="title">问题：编译成功 = 交付完成</div>
+            <div class="desc">只验证"能编译、能安装"，没有做功能与兼容性测试。交付后用户反馈核心功能不显示、跳转异常。</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：G2 四重验证——安装/功能/兼容/回归</div>
+            <div class="desc"><ul><li>安装测试：全新安装 + 覆盖安装 + 图标 + 启动无白屏</li><li>功能测试：页面、按钮、数据持久化、核心功能全状态</li><li>兼容性测试：多系统版本、多浏览器、多分辨率</li><li>回归测试：上次已修复问题不复发，旧功能无退化</li></ul></div>
+        </div>
+        <h3>2.6 文档维护</h3>
+        <div class="problem" data-tags="文档维护">
+            <div class="title">问题：文档重写导致历史丢失</div>
+            <div class="desc">每次更新版本历史或避坑指南时整体重写，旧版本信息、历史踩坑记录被删掉，可追溯性归零。</div>
+        </div>
+        <div class="solution">
+            <div class="title">解决方案：增量演进——旧内容零改动</div>
+            <div class="desc"><ul><li>历程网站：新卡片插入最前，更新 latest-card，旧卡片一律不动</li><li>本表避坑区：新坑追加到对应小节末尾，旧 problem/solution 不删不改</li></ul></div>
+        </div>
+        <h3>2.7 交付前检查清单（G1~G4 精简版）</h3>
+        <p class="lead"><strong>G1 构建门：</strong>签名文件路径正确 / 依赖配置存在 / 内部版本号 +1 / 对外版本号更新</p>
+        <p class="lead"><strong>G2 测试门：</strong>全新安装 + 覆盖安装通过 / 核心功能全流程可走通 / 兼容性抽样通过</p>
+        <p class="lead"><strong>G3 文档门：</strong>新卡片插入最前且旧内容零改动 / 最新版信息与交付一致 / 下载链接全部有效 / HTML 与源码包同步</p>
+        <p class="lead"><strong>G4 交付门：</strong>九件清单逐件核销 / 文件名符合命名规范 / 版本号多处一致 / 交付说明已给出 / 用户验收已确认</p>
+    </div>
+    <div class="section" id="s3">
+        <h2>三、项目经验沉淀（其他项目可吸取内容）</h2>
+        <p class="lead">本区收录从各项目中提炼、可在后续项目中直接吸取的内容。除避坑知识（第二章）外，沉淀以下八类：正向实践、需求模式、决策记录、平台政策变化、编译环境与模板资产登记、交付度量数据、常见问答、外部资源与工具。</p>
+        <h3>3.1 正向实践库（成功经验）</h3>
+        <table>
+            <tr><th style="width:30%">实践</th><th style="width:40%">做法</th><th>效果</th></tr>
+            <tr><td>信息公开前置确认</td><td>文档写入前先与甲方逐条确认公开级别，未确认默认保密</td><td>写入后零返工、零外泄</td></tr>
+            <tr><td>三网同步更新机制</td><td>任何版本变更：总纲 → 版本历史 → 交付书 → 三网源件同步重打</td><td>多轮升级全部一次通过</td></tr>
+        </table>
+        <h3>3.2 需求模式库（跨项目高频需求）</h3>
+        <table>
+            <tr><th style="width:20%">模式</th><th style="width:40%">需求描述</th><th>默认方案与可变点</th></tr>
+            <tr><td>多端版本</td><td>同一产品需要手机版 / 电脑版 / 网页版等多形态</td><td>默认：多平台同版本号、同时发布</td></tr>
+            <tr><td>设置互通</td><td>跨端设置 / 数据需要互通或明确隔离</td><td>默认：桌面本地文件 / 网页 localStorage</td></tr>
+        </table>
+        <h3>3.3 决策记录库（ADR）</h3>
+        <table>
+            <tr><th style="width:22%">决策</th><th>背景与选择</th></tr>
+            <tr><td>自包含单文件 HTML</td><td>背景：网页版需要可长期访问、可本地运行。选择：单文件 HTML，无外部依赖。理由：可双击运行、不受隧道/服务失效影响。</td></tr>
+            <tr><td>编号去圈号</td><td>背景：交付清单编号曾用圈号。选择：统一改阿拉伯数字（1. 2. 3.）。理由：官方化表述，避免字体兼容与复制歧义。</td></tr>
+        </table>
+        <h3>3.4 平台政策变化跟踪</h3>
+        <table>
+            <tr><th style="width:20%">平台 / 领域</th><th style="width:44%">政策变化</th><th>应对动作</th></tr>
+            <tr><td>应用签名新政</td><td>应用商店要求新上架应用升级签名方案</td><td>跟踪各商店 targetSdk / 签名要求，升级时同步更新</td></tr>
+            <tr><td>免费隧道服务</td><td>免费内网穿透服务限速、限时长或停止免费额度</td><td>不依赖隧道作为交付链接；交付说明标注链接时效</td></tr>
+        </table>
+        <h3>3.5 编译环境与模板资产登记</h3>
+        <p class="lead"><strong>本区包含本项目所用编译环境包下载链接</strong>（我方提供包 + 官方源双链接），与总纲编译环境资产库同步维护。</p>
+        <table>
+            <tr><th style="width:16%">类别</th><th style="width:22%">资产</th><th style="width:28%">内容构成</th><th>我方提供</th><th>官方源</th></tr>
+            <tr><td>基础编译工具</td><td>Python 运行时</td><td>Python 3 解释器 + pip + venv</td><td>（项目链接）</td><td><a href="https://www.python.org/downloads/" target="_blank" rel="noopener">官方下载</a></td></tr>
+            <tr><td>文档类</td><td>文档类编译环境包</td><td>样式令牌 + 页面骨架模板 + 重建指南</td><td>（项目链接）</td><td>自研资产，无官方源</td></tr>
+        </table>
+        <h3>3.6 交付度量数据</h3>
+        <table>
+            <tr><th style="width:26%">项目类型（匿名）</th><th style="width:20%">交付规模</th><th>备注</th></tr>
+            <tr><td>手机版项目（九件套）</td><td>9 件 / 多版本迭代</td><td>首个实践项目</td></tr>
+            <tr><td>桌面 + 网页多端项目</td><td>11 件（9 + 2 扩展）</td><td>验证多平台扩展机制</td></tr>
+        </table>
+        <h3>3.7 常见问答沉淀（FAQ）</h3>
+        <table>
+            <tr><th style="width:30%">问题</th><th>已确认答案</th></tr>
+            <tr><td>交付链接有效期多长？</td><td>以链接托管方策略为准，需在交付时逐个验证可访问</td></tr>
+            <tr><td>旧内容可以破例修改吗？</td><td>不可以。旧内容零改动是 A3 铁律</td></tr>
+        </table>
+        <h3>3.8 外部资源与工具清单</h3>
+        <table>
+            <tr><th style="width:24%">用途</th><th style="width:36%">工具 / 方式</th><th>适用条件与备注</th></tr>
+            <tr><td>无头浏览器渲染验证</td><td>chromium --headless --no-sandbox --screenshot</td><td>HTML 产物渲染截图验证</td></tr>
+            <tr><td>产物确定性校验</td><td>verifier（file/xlsx/docx/pdf/pptx/text/archive/rubric 族）</td><td>格式、内容、敏感词、zip 条目断言</td></tr>
+        </table>
+        <div class="note"><strong>收录规则：</strong>每类条目新内容先登记后入库；涉及项目信息一律匿名化；旧条目不删不改，新条目追加到对应类别末尾。</div>
+        <h3>3.9 下载链接区（单源 aka 短链）</h3>
+        <p class="lead">本区为本次交付物的下载入口，使用<strong>单源 aka 短链</strong>。</p>
+        <table>
+            <tr><th style="width:34%">交付物</th><th>下载链接</th></tr>
+            <tr><td>1. 产品名_总纲_vX.Y.Z.html</td><td>（aka 链接）</td></tr>
+            <tr><td>2. 产品名_总纲源码包_vX.Y.Z.zip</td><td>（aka 链接）</td></tr>
+        </table>
+    </div>
+    <div class="footer">
+        九件交付系统 · NADS变更登记表 v4.2.1 · 样板文件 · 总纲更新管理 + 避坑知识库权威源 + 项目经验沉淀
+    </div>
+</div>
+<script>
+(function () {
+    var input = document.getElementById('search-input');
+    var btns = document.querySelectorAll('#tag-btns .tag-btn');
+    var hint = document.getElementById('search-hint');
+    var activeTag = '';
+    function apply() {
+        if (!input) return;
+        var kw = (input.value || '').trim().toLowerCase();
+        var shown = 0, total = 0;
+        document.querySelectorAll('#s2 .problem').forEach(function (b) {
+            total++;
+            var tags = (b.getAttribute('data-tags') || '').toLowerCase();
+            var tOk = !activeTag || tags.indexOf(activeTag.toLowerCase()) !== -1;
+            var kOk = !kw || (b.textContent || '').toLowerCase().indexOf(kw) !== -1;
+            var show = tOk && kOk;
+            if (show) shown++;
+            b.style.display = show ? '' : 'none';
+            var sol = b.nextElementSibling;
+            if (sol && sol.classList.contains('solution')) {
+                sol.style.display = show ? '' : 'none';
+            }
+        });
+        hint.textContent = (activeTag || kw)
+            ? ('命中 ' + shown + ' / ' + total + ' 条踩坑记录')
+            : ('共 ' + total + ' 条踩坑记录，全部显示中。');
+    }
+    if (input) input.addEventListener('input', apply);
+    apply();
+    btns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            btns.forEach(function (x) { x.classList.remove('active'); });
+            btn.classList.add('active');
+            activeTag = btn.getAttribute('data-tag') || '';
+            apply();
+        });
+    });
+})();
+</script>
+</body>
+</html>
